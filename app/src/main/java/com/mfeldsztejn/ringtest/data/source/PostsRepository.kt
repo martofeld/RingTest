@@ -1,8 +1,10 @@
 package com.mfeldsztejn.ringtest.data.source
 
-import com.mfeldsztejn.ringtest.data.Post
+import androidx.lifecycle.LiveData
+import androidx.paging.PagingData
+import com.mfeldsztejn.ringtest.data.models.Post
 
 interface PostsRepository {
-    suspend fun getPosts(): List<Post>
     suspend fun markPostAsRead(id: Int)
+    fun postsOfSubreddit(subreddit: String, pageSize: Int): LiveData<PagingData<Post>>
 }

@@ -1,15 +1,19 @@
 package com.mfeldsztejn.ringtest.di
 
 import android.app.Application
+import androidx.lifecycle.SavedStateHandle
 import androidx.room.Room
+import com.mfeldsztejn.ringtest.data.source.PostsRepository
 import com.mfeldsztejn.ringtest.data.source.PostsRepositoryImpl
 import com.mfeldsztejn.ringtest.data.source.local.PostsDatabase
 import com.mfeldsztejn.ringtest.data.source.local.PostsLocalDataSource
 import com.mfeldsztejn.ringtest.data.source.remote.PostsRemoteDataSource
 import com.mfeldsztejn.ringtest.data.source.remote.RedditAPI
+import com.mfeldsztejn.ringtest.ui.main.ListViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -19,7 +23,7 @@ import retrofit2.create
 fun initializeKoin(application: Application) {
     startKoin {
         androidContext(application)
-        modules(networkModule, databaseModule, repositoriesModule)
+        modules(networkModule, databaseModule, repositoriesModule, viewModelModule)
     }
 }
 
@@ -31,12 +35,12 @@ val networkModule = module {
 }
 
 private fun buildClient() = OkHttpClient.Builder().run {
-    addInterceptor(HttpLoggingInterceptor().apply { setLevel(HttpLoggingInterceptor.Level.BODY) })
+    addInterceptor(HttpLoggingInterceptor().apply { setLevel(HttpLoggingInterceptor.Level.BASIC) })
     build()
 }
 
 private fun buildRetrofit(client: OkHttpClient) = Retrofit.Builder().run {
-    baseUrl("")
+    baseUrl("https://www.reddit.com/")
     client(client)
     addConverterFactory(GsonConverterFactory.create())
     build()
@@ -51,10 +55,26 @@ val databaseModule = module {
             PostsDatabase::class.java,
             "posts_database.db"
         )
+            .fallbackToDestructiveMigration()
+            .build()
     }
     single { PostsLocalDataSource(database = get()) }
 }
 
 val repositoriesModule = module {
-    single { PostsRepositoryImpl(remoteDataSource = get(), localDataSource = get()) }
+    single {
+        PostsRepositoryImpl(
+            remoteDataSource = get(),
+            localDataSource = get()
+        ) as PostsRepository
+    }
+}
+
+val viewModelModule = module {
+    viewModel { (handle: SavedStateHandle) ->
+        ListViewModel(
+            repository = get(),
+            savedState = handle
+        )
+    }
 }
