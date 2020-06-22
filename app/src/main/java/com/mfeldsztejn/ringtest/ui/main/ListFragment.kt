@@ -1,9 +1,9 @@
 package com.mfeldsztejn.ringtest.ui.main
 
 import android.os.Bundle
-import android.view.KeyEvent
-import android.view.View
+import android.view.*
 import android.view.inputmethod.EditorInfo
+import androidx.appcompat.widget.SearchView
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
@@ -21,7 +21,9 @@ class ListFragment : Fragment(R.layout.main_fragment), Listener {
 
 
     companion object {
-        fun newInstance() = ListFragment()
+        fun newInstance() = ListFragment().apply {
+            setHasOptionsMenu(true)
+        }
     }
 
     private val adapter by lazy { PostsAdapter(GlideApp.with(this), this) }
@@ -40,7 +42,6 @@ class ListFragment : Fragment(R.layout.main_fragment), Listener {
             )
         )
         list.itemAnimator = Animator()
-        initSearch()
         adapter.addLoadStateListener {
             swipe_refresh.isRefreshing = it.refresh is LoadState.Loading
         }
@@ -54,30 +55,28 @@ class ListFragment : Fragment(R.layout.main_fragment), Listener {
         }
     }
 
-    private fun initSearch() {
-        input.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_GO) {
-                updatedSubredditFromInput()
-                true
-            } else {
-                false
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.list_fragment_menu, menu)
+        val searchView = menu.findItem(R.id.app_bar_search).actionView as SearchView
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                viewModel.showSubreddit(query)
+                return true
             }
-        }
-        input.setOnKeyListener { _, keyCode, event ->
-            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                updatedSubredditFromInput()
-                true
-            } else {
-                false
-            }
+
+            override fun onQueryTextChange(newText: String?) = false
+        })
+        searchView.setOnSearchClickListener {
+            searchView.setQuery(viewModel.currentSubrredit, false)
         }
     }
 
-    private fun updatedSubredditFromInput() {
-        input.text.trim().toString().let {
-            if (it.isNotBlank()) {
-                viewModel.showSubreddit(it)
-            }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return if(item.itemId == R.id.clear_all) {
+            viewModel.clearAll()
+            true
+        } else {
+            super.onOptionsItemSelected(item)
         }
     }
 
@@ -90,7 +89,7 @@ class ListFragment : Fragment(R.layout.main_fragment), Listener {
     }
 }
 
-class Animator: SlideInLeftAnimator() {
+class Animator : SlideInLeftAnimator() {
 
     override fun preAnimateAddImpl(holder: RecyclerView.ViewHolder?) {
         holder?.itemView?.let {

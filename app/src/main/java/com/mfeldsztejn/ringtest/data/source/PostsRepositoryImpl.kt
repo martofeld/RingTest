@@ -20,6 +20,10 @@ class PostsRepositoryImpl(
         localDataSource.removePost(id)
     }
 
+    override suspend fun clearAll(subreddit: String) {
+        localDataSource.clearAll(subreddit)
+    }
+
     override fun postsOfSubreddit(subreddit: String, pageSize: Int) = Pager(
         config = PagingConfig(pageSize = 25, initialLoadSize = 100),
         remoteMediator = PageKeyedRemoteMediator(localDataSource, remoteDataSource, subreddit)

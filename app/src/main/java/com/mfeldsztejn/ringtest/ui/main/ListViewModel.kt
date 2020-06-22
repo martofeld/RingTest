@@ -23,16 +23,16 @@ class ListViewModel(
         }
     }
 
+    val currentSubrredit: String
+        get() = savedState.get<String>(KEY_SUBREDDIT)!!
+
     val posts = Transformations.switchMap(savedState.getLiveData<String>(KEY_SUBREDDIT)) {
         repository.postsOfSubreddit(it, 30)
     }
 
-    private fun shouldShowSubreddit(
-        subreddit: String
-    ) = savedState.get<String>(KEY_SUBREDDIT) != subreddit
-
-    fun showSubreddit(subreddit: String) {
-        if (!shouldShowSubreddit(subreddit)) return
+    fun showSubreddit(subreddit: String?) {
+        val finalSubreddit = subreddit ?: DEFAULT_SUBREDDIT
+        if (currentSubrredit == finalSubreddit) return
 
         savedState.set(KEY_SUBREDDIT, subreddit)
     }
@@ -46,6 +46,12 @@ class ListViewModel(
     fun removePost(id: Int) {
         viewModelScope.launch {
             repository.removePost(id)
+        }
+    }
+
+    fun clearAll() {
+        viewModelScope.launch {
+            repository.clearAll(currentSubrredit)
         }
     }
 }

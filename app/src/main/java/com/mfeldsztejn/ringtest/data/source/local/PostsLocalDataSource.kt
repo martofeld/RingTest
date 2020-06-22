@@ -21,8 +21,7 @@ class PostsLocalDataSource(private val database: PostsDatabase) {
     ) {
         database.withTransaction {
             if (isRefreshing) {
-                postDao.deleteBySubreddit(subredditName)
-                keyDao.deleteBySubreddit(subredditName)
+                clearAll(subredditName)
             }
 
             keyDao.insert(SubredditRemoteKey(subredditName, after))
@@ -40,4 +39,10 @@ class PostsLocalDataSource(private val database: PostsDatabase) {
         postDao.removePost(id)
     }
 
+    suspend fun clearAll(subredditName: String) {
+        database.withTransaction {
+            postDao.deleteBySubreddit(subredditName)
+            keyDao.deleteBySubreddit(subredditName)
+        }
+    }
 }
