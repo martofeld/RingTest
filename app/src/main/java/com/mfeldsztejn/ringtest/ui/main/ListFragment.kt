@@ -1,5 +1,6 @@
 package com.mfeldsztejn.ringtest.ui.main
 
+import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mfeldsztejn.ringtest.GlideApp
+import com.mfeldsztejn.ringtest.MainActivity
 import com.mfeldsztejn.ringtest.R
 import com.mfeldsztejn.ringtest.util.snackbar
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator
@@ -26,6 +28,12 @@ import org.koin.androidx.viewmodel.ext.android.stateViewModel
 
 class ListFragment : Fragment(R.layout.main_fragment), Listener {
 
+    interface Listener {
+        fun onDetailSelected(
+            postId: Int,
+            sharedElements: Array<out Pair<String?, View>>
+        )
+    }
 
     companion object {
         fun newInstance() = ListFragment()
@@ -33,6 +41,7 @@ class ListFragment : Fragment(R.layout.main_fragment), Listener {
 
     private val adapter by lazy { PostsAdapter(GlideApp.with(this), this) }
     private val viewModel by stateViewModel<ListViewModel>()
+    private var interactionListener: Listener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,6 +83,11 @@ class ListFragment : Fragment(R.layout.main_fragment), Listener {
         }
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        interactionListener = context as? Listener
+    }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.list_fragment_menu, menu)
         val searchView = menu.findItem(R.id.app_bar_search).actionView as SearchView
@@ -103,8 +117,9 @@ class ListFragment : Fragment(R.layout.main_fragment), Listener {
         viewModel.removePost(id)
     }
 
-    override fun onOpen(id: Int) {
+    override fun onOpen(id: Int, vararg sharedElements: Pair<String?, View>) {
         viewModel.markPostAsRead(id)
+        interactionListener?.onDetailSelected(id, sharedElements)
     }
 }
 

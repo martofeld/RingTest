@@ -52,9 +52,12 @@ class PostViewHolder(parent: ViewGroup) :
                 glide.clear(thumbnail)
             }
             comments.text = "${post?.comments ?: 0} comments"
+            val titleTransitionName = post?.id
+                ?.let { "title_$it" }
+                ?.also { title.transitionName = it }
             post?.let {
                 setOnClickListener {
-                    listener.onOpen(post.id)
+                    listener.onOpen(post.id, titleTransitionName to title)
                 }
                 dismiss.setOnClickListener {
                     listener.onDismiss(post.id)

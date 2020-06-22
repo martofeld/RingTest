@@ -45,4 +45,6 @@ class PostsLocalDataSource(private val database: PostsDatabase) {
             keyDao.deleteBySubreddit(subredditName)
         }
     }
+
+    suspend fun getPostById(postId: Int) = postDao.getPostById(postId)
 }

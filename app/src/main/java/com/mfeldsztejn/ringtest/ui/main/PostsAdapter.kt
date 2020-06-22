@@ -1,5 +1,6 @@
 package com.mfeldsztejn.ringtest.ui.main
 
+import android.view.View
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -8,7 +9,7 @@ import com.mfeldsztejn.ringtest.data.models.Post
 
 interface Listener {
     fun onDismiss(id: Int)
-    fun onOpen(id: Int)
+    fun onOpen(id: Int, vararg sharedElements: Pair<String?, View>)
 }
 
 class PostsAdapter(private val glide: GlideRequests, private val listener: Listener) :

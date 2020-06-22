@@ -9,6 +9,7 @@ import com.mfeldsztejn.ringtest.data.source.local.PostsDatabase
 import com.mfeldsztejn.ringtest.data.source.local.PostsLocalDataSource
 import com.mfeldsztejn.ringtest.data.source.remote.PostsRemoteDataSource
 import com.mfeldsztejn.ringtest.data.source.remote.RedditAPI
+import com.mfeldsztejn.ringtest.ui.detail.DetailViewModel
 import com.mfeldsztejn.ringtest.ui.main.ListViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -77,4 +78,5 @@ val viewModelModule = module {
             savedState = handle
         )
     }
+    viewModel { (id: Int) -> DetailViewModel(postId = id, postsRepository = get()) }
 }
