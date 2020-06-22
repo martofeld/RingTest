@@ -1,11 +1,14 @@
 package com.mfeldsztejn.ringtest.ui.main
 
 import android.os.Bundle
-import android.view.*
-import android.view.inputmethod.EditorInfo
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -13,21 +16,28 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mfeldsztejn.ringtest.GlideApp
 import com.mfeldsztejn.ringtest.R
+import com.mfeldsztejn.ringtest.util.snackbar
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator
 import kotlinx.android.synthetic.main.main_fragment.*
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.distinctUntilChangedBy
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.stateViewModel
 
 class ListFragment : Fragment(R.layout.main_fragment), Listener {
 
 
     companion object {
-        fun newInstance() = ListFragment().apply {
-            setHasOptionsMenu(true)
-        }
+        fun newInstance() = ListFragment()
     }
 
     private val adapter by lazy { PostsAdapter(GlideApp.with(this), this) }
     private val viewModel by stateViewModel<ListViewModel>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,8 +52,17 @@ class ListFragment : Fragment(R.layout.main_fragment), Listener {
             )
         )
         list.itemAnimator = Animator()
-        adapter.addLoadStateListener {
-            swipe_refresh.isRefreshing = it.refresh is LoadState.Loading
+        lifecycleScope.launch {
+            adapter.loadStateFlow
+                .distinctUntilChangedBy { it.refresh }
+                .collectLatest {
+                    if (it.refresh is LoadState.Error) {
+                        list_fragment_root.snackbar(R.string.generic_error, R.string.retry) {
+                            adapter.retry()
+                        }
+                    }
+                    swipe_refresh.isRefreshing = it.refresh is LoadState.Loading
+                }
         }
 
         viewModel.posts.observe(viewLifecycleOwner) {
@@ -72,7 +91,7 @@ class ListFragment : Fragment(R.layout.main_fragment), Listener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return if(item.itemId == R.id.clear_all) {
+        return if (item.itemId == R.id.clear_all) {
             viewModel.clearAll()
             true
         } else {

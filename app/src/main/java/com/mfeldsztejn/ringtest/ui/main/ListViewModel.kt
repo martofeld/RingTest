@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import com.mfeldsztejn.ringtest.data.source.PostsRepository
 import kotlinx.coroutines.launch
 
@@ -27,7 +28,9 @@ class ListViewModel(
         get() = savedState.get<String>(KEY_SUBREDDIT)!!
 
     val posts = Transformations.switchMap(savedState.getLiveData<String>(KEY_SUBREDDIT)) {
-        repository.postsOfSubreddit(it, 30)
+        repository
+            .postsOfSubreddit(it, 30)
+            .cachedIn(viewModelScope)
     }
 
     fun showSubreddit(subreddit: String?) {

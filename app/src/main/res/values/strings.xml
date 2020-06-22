@@ -2,4 +2,6 @@
     <string name="app_name">RingTest</string>
     <string name="clear_all">Clear all</string>
     <string name="search">Search</string>
+    <string name="generic_error">Something went wrong</string>
+    <string name="retry">Retry</string>
 </resources>

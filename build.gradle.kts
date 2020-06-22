@@ -16,5 +16,6 @@ allprojects {
         google()
         jcenter()
         mavenCentral()
+        maven { setUrl("https://androidx.dev/snapshots/builds/6613339/artifacts/repository") }
     }
 }
