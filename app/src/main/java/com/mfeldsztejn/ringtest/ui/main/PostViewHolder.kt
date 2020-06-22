@@ -18,6 +18,7 @@ package com.mfeldsztejn.ringtest.ui.main
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
 import androidx.recyclerview.widget.RecyclerView
 import com.mfeldsztejn.ringtest.GlideRequests
 import com.mfeldsztejn.ringtest.R
@@ -31,10 +32,15 @@ import kotlinx.android.synthetic.main.post_view_holder.view.*
 class PostViewHolder(parent: ViewGroup) :
     RecyclerView.ViewHolder(parent.inflate(R.layout.post_view_holder)) {
 
-    fun bind(post: Post?, glide: GlideRequests) {
+    fun bind(
+        post: Post?,
+        glide: GlideRequests,
+        listener: Listener
+    ) {
         with(itemView) {
             author.text = post?.author ?: "loading"
             title.text = post?.title ?: "loading"
+            unread_indicator.isGone = post?.isRead ?: true
             if (post?.thumbnail?.startsWith("http") == true) {
                 thumbnail.visibility = View.VISIBLE
                 glide.load(post.thumbnail)
@@ -45,14 +51,15 @@ class PostViewHolder(parent: ViewGroup) :
                 thumbnail.visibility = View.GONE
                 glide.clear(thumbnail)
             }
-            updateComments(post)
-            setOnClickListener {
-
+            comments.text = "${post?.comments ?: 0} comments"
+            post?.let {
+                setOnClickListener {
+                    listener.onOpen(post.id)
+                }
+                dismiss.setOnClickListener {
+                    listener.onDismiss(post.id)
+                }
             }
         }
-    }
-
-    fun updateComments(item: Post?) {
-        itemView.comments.text = "${item?.comments ?: 0} comments"
     }
 }

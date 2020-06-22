@@ -17,4 +17,10 @@ interface PostsDao {
 
     @Query("DELETE FROM posts WHERE subreddit = :subreddit")
     suspend fun deleteBySubreddit(subreddit: String)
+
+    @Query("UPDATE posts SET isRead = 1 WHERE id = :id")
+    suspend fun markPostAsRead(id: Int)
+
+    @Query("DELETE FROM posts WHERE id = :id")
+    suspend fun removePost(id: Int)
 }

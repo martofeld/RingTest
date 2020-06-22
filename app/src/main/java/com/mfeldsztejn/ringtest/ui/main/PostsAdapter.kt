@@ -6,11 +6,16 @@ import androidx.recyclerview.widget.DiffUtil
 import com.mfeldsztejn.ringtest.GlideRequests
 import com.mfeldsztejn.ringtest.data.models.Post
 
-class PostsAdapter(private val glide: GlideRequests) :
+interface Listener {
+    fun onDismiss(id: Int)
+    fun onOpen(id: Int)
+}
+
+class PostsAdapter(private val glide: GlideRequests, private val listener: Listener) :
     PagingDataAdapter<Post, PostViewHolder>(POST_COMPARATOR) {
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        holder.bind(getItem(position), glide)
+        holder.bind(getItem(position), glide, listener)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {

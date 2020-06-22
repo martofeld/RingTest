@@ -32,4 +32,12 @@ class PostsLocalDataSource(private val database: PostsDatabase) {
 
     fun postsBySubreddit(subReddit: String) = postDao.postsBySubreddit(subReddit)
 
+    suspend fun markPostAsRead(id: Int) {
+        postDao.markPostAsRead(id)
+    }
+
+    suspend fun removePost(id: Int) {
+        postDao.removePost(id)
+    }
+
 }

@@ -13,7 +13,11 @@ class PostsRepositoryImpl(
 ) : PostsRepository {
 
     override suspend fun markPostAsRead(id: Int) {
-        TODO("Not yet implemented")
+        localDataSource.markPostAsRead(id)
+    }
+
+    override suspend fun removePost(id: Int) {
+        localDataSource.removePost(id)
     }
 
     override fun postsOfSubreddit(subreddit: String, pageSize: Int) = Pager(

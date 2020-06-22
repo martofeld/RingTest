@@ -57,6 +57,7 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.3.0-alpha06")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
+    implementation("jp.wasabeef:recyclerview-animators:3.0.0")
 
     // DI
     implementation("org.koin:koin-android:$koinVersion")

@@ -3,7 +3,9 @@ package com.mfeldsztejn.ringtest.ui.main
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.mfeldsztejn.ringtest.data.source.PostsRepository
+import kotlinx.coroutines.launch
 
 class ListViewModel(
     private val repository: PostsRepository,
@@ -33,5 +35,17 @@ class ListViewModel(
         if (!shouldShowSubreddit(subreddit)) return
 
         savedState.set(KEY_SUBREDDIT, subreddit)
+    }
+
+    fun markPostAsRead(id: Int) {
+        viewModelScope.launch {
+            repository.markPostAsRead(id)
+        }
+    }
+
+    fun removePost(id: Int) {
+        viewModelScope.launch {
+            repository.removePost(id)
+        }
     }
 }
