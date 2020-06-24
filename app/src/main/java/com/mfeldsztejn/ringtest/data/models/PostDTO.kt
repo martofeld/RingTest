@@ -12,7 +12,10 @@ data class PostDataDTO(
     val comments: Int,
     @SerializedName("created_utc")
     val createdUtc: Long,
-    val subreddit: String
+    val subreddit: String,
+    @SerializedName("selftext_html")
+    val text: String,
+    val url: String
 )
 
 data class PostDTO(val kind: String, val data: PostDataDTO)

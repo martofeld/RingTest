@@ -19,6 +19,8 @@ data class Post(
     val title: String,
     val comments: Int,
     val createdUtc: Long,
+    val text: String?,
+    val url: String,
     val isRead: Boolean = false,
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0

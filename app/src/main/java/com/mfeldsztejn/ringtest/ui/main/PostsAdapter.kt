@@ -9,7 +9,7 @@ import com.mfeldsztejn.ringtest.data.models.Post
 
 interface Listener {
     fun onDismiss(id: Int)
-    fun onOpen(id: Int, vararg sharedElements: Pair<String?, View>)
+    fun onOpen(id: Int, vararg sharedElements: View)
 }
 
 class PostsAdapter(private val glide: GlideRequests, private val listener: Listener) :

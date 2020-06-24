@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.ViewCompat
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
@@ -31,7 +32,7 @@ class ListFragment : Fragment(R.layout.main_fragment), Listener {
     interface Listener {
         fun onDetailSelected(
             postId: Int,
-            sharedElements: Array<out Pair<String?, View>>
+            sharedElements: Array<out View>
         )
     }
 
@@ -46,10 +47,12 @@ class ListFragment : Fragment(R.layout.main_fragment), Listener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        postponeEnterTransition()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        view.doOnPreDraw { startPostponedEnterTransition() }
         list.adapter = adapter.withLoadStateHeaderAndFooter(
             header = PostsLoadStateAdapter(adapter),
             footer = PostsLoadStateAdapter(adapter)
@@ -117,7 +120,7 @@ class ListFragment : Fragment(R.layout.main_fragment), Listener {
         viewModel.removePost(id)
     }
 
-    override fun onOpen(id: Int, vararg sharedElements: Pair<String?, View>) {
+    override fun onOpen(id: Int, vararg sharedElements: View) {
         viewModel.markPostAsRead(id)
         interactionListener?.onDetailSelected(id, sharedElements)
     }

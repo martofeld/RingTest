@@ -6,7 +6,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface RedditAPI {
-    @GET("/r/{subreddit}/hot.json")
+    @GET("/r/{subreddit}/hot.json?raw_json=1")
     suspend fun getPosts(
         @Path("subreddit") subreddit: String,
         @Query("after") after: String?,

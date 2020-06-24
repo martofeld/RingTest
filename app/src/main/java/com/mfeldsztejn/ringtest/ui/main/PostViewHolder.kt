@@ -37,11 +37,12 @@ class PostViewHolder(parent: ViewGroup) :
         glide: GlideRequests,
         listener: Listener
     ) {
+        post ?: return
         with(itemView) {
-            author.text = post?.author ?: "loading"
-            title.text = post?.title ?: "loading"
-            unread_indicator.isGone = post?.isRead ?: true
-            if (post?.thumbnail?.startsWith("http") == true) {
+            author.text = post.author ?: "loading"
+            title.text = post.title ?: "loading"
+            unread_indicator.isGone = post.isRead ?: true
+            if (post.thumbnail?.startsWith("http") == true) {
                 thumbnail.visibility = View.VISIBLE
                 glide.load(post.thumbnail)
                     .centerCrop()
@@ -51,18 +52,21 @@ class PostViewHolder(parent: ViewGroup) :
                 thumbnail.visibility = View.GONE
                 glide.clear(thumbnail)
             }
-            comments.text = "${post?.comments ?: 0} comments"
-            val titleTransitionName = post?.id
-                ?.let { "title_$it" }
-                ?.also { title.transitionName = it }
-            post?.let {
-                setOnClickListener {
-                    listener.onOpen(post.id, titleTransitionName to title)
-                }
-                dismiss.setOnClickListener {
-                    listener.onDismiss(post.id)
-                }
+            comments.text = itemView.context.getString(R.string.comments, post.comments)
+            title.transitionName = createTransitionName(R.string.title_transition_name, post.id)
+            author.transitionName = createTransitionName(R.string.author_transition_name, post.id)
+            thumbnail.transitionName =
+                createTransitionName(R.string.thumbnail_transition_name, post.id)
+            setOnClickListener {
+                listener.onOpen(post.id, title, author, thumbnail)
+            }
+            dismiss.setOnClickListener {
+                listener.onDismiss(post.id)
             }
         }
     }
+
+    private fun createTransitionName(template: Int, id: Int) =
+        itemView.context.getString(template, id)
+
 }

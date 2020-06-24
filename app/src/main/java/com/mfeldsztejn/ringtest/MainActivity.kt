@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity(), ListFragment.Listener {
         }
     }
 
-    override fun onDetailSelected(postId: Int, sharedElements: Array<out Pair<String?, View>>) {
+    override fun onDetailSelected(postId: Int, sharedElements: Array<out View>) {
         isShowingDetail = true
         supportFragmentManager.commit {
             setReorderingAllowed(true)
@@ -75,8 +75,8 @@ class MainActivity : AppCompatActivity(), ListFragment.Listener {
             } else {
                 addToBackStack(null)
                 sharedElements
-                    .filterNot { it.first.isNullOrEmpty() }
-                    .forEach { addSharedElement(it.second, it.first!!) }
+                    .filterNot { it.transitionName.isNullOrEmpty() }
+                    .forEach { addSharedElement(it, it.transitionName) }
                 replaceDetailFragment(R.id.main_fragment, newFragment = newFragment)
             }
         }
@@ -100,6 +100,12 @@ private fun FragmentTransaction.replaceDetailFragment(
         arguments = originalDetailFragment?.arguments
     }
 ) {
+    setCustomAnimations(
+        R.anim.slide_in_right,
+        R.anim.slide_out_left,
+        android.R.anim.slide_in_left,
+        android.R.anim.slide_out_right
+    )
     originalDetailFragment?.let { remove(it) }
     replace(
         container,
