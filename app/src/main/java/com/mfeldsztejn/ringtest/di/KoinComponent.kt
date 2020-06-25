@@ -3,6 +3,8 @@ package com.mfeldsztejn.ringtest.di
 import android.app.Application
 import androidx.lifecycle.SavedStateHandle
 import androidx.room.Room
+import com.mfeldsztejn.ringtest.PreferencesManager
+import com.mfeldsztejn.ringtest.Storage
 import com.mfeldsztejn.ringtest.data.source.PostsRepository
 import com.mfeldsztejn.ringtest.data.source.PostsRepositoryImpl
 import com.mfeldsztejn.ringtest.data.source.local.PostsDatabase
@@ -69,11 +71,13 @@ val repositoriesModule = module {
             localDataSource = get()
         ) as PostsRepository
     }
+    single { PreferencesManager(get()) as Storage }
 }
 
 val viewModelModule = module {
     viewModel { (handle: SavedStateHandle) ->
         ListViewModel(
+            storage = get(),
             repository = get(),
             savedState = handle
         )

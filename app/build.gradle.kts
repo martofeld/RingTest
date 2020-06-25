@@ -58,6 +58,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
     implementation("androidx.palette:palette-ktx:1.0.0")
+    implementation("androidx.preference:preference-ktx:1.1.1")
     implementation("jp.wasabeef:recyclerview-animators:3.0.0")
 
     // DI

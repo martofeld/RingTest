@@ -2,10 +2,12 @@ package com.mfeldsztejn.ringtest.ui.main
 
 import androidx.lifecycle.*
 import androidx.paging.cachedIn
+import com.mfeldsztejn.ringtest.Storage
 import com.mfeldsztejn.ringtest.data.source.PostsRepository
 import kotlinx.coroutines.launch
 
 class ListViewModel(
+    private val storage: Storage,
     private val repository: PostsRepository,
     private val savedState: SavedStateHandle
 ) : ViewModel() {
@@ -17,7 +19,7 @@ class ListViewModel(
 
     init {
         if (!savedState.contains(KEY_SUBREDDIT)) {
-            savedState.set(KEY_SUBREDDIT, DEFAULT_SUBREDDIT)
+            savedState.set(KEY_SUBREDDIT, storage.getSubreddit())
         }
     }
 
@@ -25,6 +27,7 @@ class ListViewModel(
         get() = savedState.getLiveData(KEY_SUBREDDIT)
 
     val posts = Transformations.switchMap(currentSubrredit) {
+        storage.saveSubreddit(it)
         repository
             .postsOfSubreddit(it, 30)
             .cachedIn(viewModelScope)
