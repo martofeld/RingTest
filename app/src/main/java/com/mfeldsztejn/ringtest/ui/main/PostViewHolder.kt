@@ -16,6 +16,7 @@
 
 package com.mfeldsztejn.ringtest.ui.main
 
+import android.text.format.DateUtils
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isGone
@@ -39,9 +40,9 @@ class PostViewHolder(parent: ViewGroup) :
     ) {
         post ?: return
         with(itemView) {
-            author.text = post.author ?: "loading"
-            title.text = post.title ?: "loading"
-            unread_indicator.isGone = post.isRead ?: true
+            author.text = post.author
+            title.text = post.title
+            unread_indicator.isGone = post.isRead
             if (post.thumbnail?.startsWith("http") == true) {
                 thumbnail.visibility = View.VISIBLE
                 glide.load(post.thumbnail)
@@ -52,6 +53,9 @@ class PostViewHolder(parent: ViewGroup) :
                 thumbnail.visibility = View.GONE
                 glide.clear(thumbnail)
             }
+            timestamp.text = DateUtils.getRelativeTimeSpanString(
+                post.createdUtc, System.currentTimeMillis(), 0L, DateUtils.FORMAT_ABBREV_ALL
+            )
             comments.text = itemView.context.getString(R.string.comments, post.comments)
             title.transitionName = createTransitionName(R.string.title_transition_name, post.id)
             author.transitionName = createTransitionName(R.string.author_transition_name, post.id)

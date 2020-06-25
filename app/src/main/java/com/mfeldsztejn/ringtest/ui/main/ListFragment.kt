@@ -9,6 +9,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.ViewCompat
+import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
@@ -54,6 +55,7 @@ class ListFragment : Fragment(R.layout.main_fragment), Listener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         (activity as? AppCompatActivity)?.setSupportActionBar(toolbar)
+        view.doOnPreDraw { startPostponedEnterTransition() }
         list.adapter = adapter.withLoadStateHeaderAndFooter(
             header = PostsLoadStateAdapter(adapter),
             footer = PostsLoadStateAdapter(adapter)

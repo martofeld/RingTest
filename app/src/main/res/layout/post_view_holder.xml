@@ -10,29 +10,28 @@
         android:id="@+id/unread_indicator"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@drawable/read_indicator"
         app:layout_constraintBottom_toBottomOf="@id/author"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/author"
-        android:background="#000"
-        tools:background="#000" />
+        app:layout_constraintTop_toTopOf="@id/author" />
 
     <TextView
         android:id="@+id/author"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/timestamp"
         app:layout_constraintStart_toEndOf="@id/unread_indicator"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="martofeld" />
 
     <TextView
         android:id="@+id/timestamp"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/author"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="18 Hours ago" />
 
     <ImageView
@@ -41,7 +40,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:contentDescription="Thumbnail"
+        android:contentDescription="@string/thumbnail"
         app:layout_constraintBottom_toTopOf="@id/barrier"
         app:layout_constraintEnd_toStartOf="@id/title"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,6 +51,8 @@
         android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:gravity="center_vertical"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@id/barrier"

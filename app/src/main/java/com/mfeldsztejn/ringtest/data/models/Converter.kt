@@ -13,7 +13,7 @@ object Converter {
                 name,
                 title,
                 comments,
-                createdUtc,
+                createdUtc * 1000, // Reddit has the timestamp in seconds and we want millis
                 text,
                 url,
                 stickied,
