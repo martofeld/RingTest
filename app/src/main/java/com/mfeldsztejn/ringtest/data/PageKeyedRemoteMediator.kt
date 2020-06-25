@@ -25,7 +25,6 @@ class PageKeyedRemoteMediator(
         state: PagingState<Int, Post>
     ): MediatorResult {
         try {
-            Log.d("MY_TAG", "CAlled load with $loadType")
             // Get the closest item from PagingState that we want to load data around.
             val loadKey = when (loadType) {
                 REFRESH -> null
