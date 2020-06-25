@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mfeldsztejn.ringtest.GlideApp
 import com.mfeldsztejn.ringtest.R
+import com.mfeldsztejn.ringtest.util.hideKeyboard
 import com.mfeldsztejn.ringtest.util.snackbar
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator
 import kotlinx.android.synthetic.main.main_fragment.*
@@ -101,6 +102,7 @@ class ListFragment : Fragment(R.layout.main_fragment), Listener {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 viewModel.showSubreddit(query)
+                hideKeyboard()
                 return true
             }
 
