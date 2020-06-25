@@ -44,7 +44,7 @@ android {
 val roomVersion = "2.3.0-alpha01"
 val koinVersion = "2.1.5"
 val navigationVersion = "2.3.0-rc01"
-val glideVersion = "4.8.0"
+val glideVersion = "4.11.0"
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:${KotlinCompilerVersion.VERSION}")
@@ -57,6 +57,7 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.3.0-alpha06")
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
+    implementation("androidx.palette:palette-ktx:1.0.0")
     implementation("jp.wasabeef:recyclerview-animators:3.0.0")
 
     // DI

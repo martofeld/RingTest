@@ -6,9 +6,9 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.ViewCompat
-import androidx.core.view.doOnPreDraw
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mfeldsztejn.ringtest.GlideApp
-import com.mfeldsztejn.ringtest.MainActivity
 import com.mfeldsztejn.ringtest.R
 import com.mfeldsztejn.ringtest.util.snackbar
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator
@@ -43,6 +42,7 @@ class ListFragment : Fragment(R.layout.main_fragment), Listener {
     private val adapter by lazy { PostsAdapter(GlideApp.with(this), this) }
     private val viewModel by stateViewModel<ListViewModel>()
     private var interactionListener: Listener? = null
+    private lateinit var searchView: SearchView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +52,7 @@ class ListFragment : Fragment(R.layout.main_fragment), Listener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.doOnPreDraw { startPostponedEnterTransition() }
+        (activity as? AppCompatActivity)?.setSupportActionBar(toolbar)
         list.adapter = adapter.withLoadStateHeaderAndFooter(
             header = PostsLoadStateAdapter(adapter),
             footer = PostsLoadStateAdapter(adapter)
@@ -81,6 +81,10 @@ class ListFragment : Fragment(R.layout.main_fragment), Listener {
             adapter.submitData(lifecycle, it)
         }
 
+        viewModel.currentSubrredit.observe(viewLifecycleOwner) {
+            toolbar.title = it
+        }
+
         swipe_refresh.setOnRefreshListener {
             adapter.refresh()
         }
@@ -93,7 +97,7 @@ class ListFragment : Fragment(R.layout.main_fragment), Listener {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.list_fragment_menu, menu)
-        val searchView = menu.findItem(R.id.app_bar_search).actionView as SearchView
+        searchView = menu.findItem(R.id.app_bar_search).actionView as SearchView
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 viewModel.showSubreddit(query)
@@ -103,7 +107,7 @@ class ListFragment : Fragment(R.layout.main_fragment), Listener {
             override fun onQueryTextChange(newText: String?) = false
         })
         searchView.setOnSearchClickListener {
-            searchView.setQuery(viewModel.currentSubrredit, false)
+            searchView.setQuery(viewModel.currentSubrredit.value, false)
         }
     }
 

@@ -5,15 +5,24 @@
     android:id="@+id/list_fragment_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.ListFragment"
-    android:background="#fff">
+    android:background="#fff"
+    tools:context=".ui.main.ListFragment">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:background="@color/colorPrimary"
+        app:titleTextColor="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        app:title="@string/app_name"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list"

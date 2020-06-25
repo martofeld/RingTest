@@ -9,4 +9,8 @@
     <string name="thumbnail_transition_name">thumbnail_%1$d</string>
     <string name="author_transition_name">author_%1$d</string>
     <string name="comments">%1$d comments</string>
+    <string name="download">Download</string>
+    <string name="download_channel">Descargas</string>
+    <string name="downloading">Descargando</string>
+    <string name="downloaded">La imagen se descargo correctamente</string>
 </resources>

@@ -15,8 +15,16 @@ data class PostDataDTO(
     val subreddit: String,
     @SerializedName("selftext_html")
     val text: String,
-    val url: String
+    val url: String,
+    val stickied: Boolean,
+    val preview: PreviewDTO?
 )
+
+data class PreviewDTO(val images: List<ImagesDTO>?)
+
+data class ImagesDTO(val source: SourceDTO?)
+
+data class SourceDTO(val url: String, val width: Int, val height: Int)
 
 data class PostDTO(val kind: String, val data: PostDataDTO)
 
