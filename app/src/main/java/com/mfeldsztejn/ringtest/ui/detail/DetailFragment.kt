@@ -85,6 +85,7 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
                                     )
                                     activity?.actionBar?.setBackgroundDrawable(ColorDrawable(color))
                                     thumbnail.setBackgroundColor(palette.getDominantColor(color))
+                                    download.drawable.setTint(palette.getMutedColor(color))
                                 }
                             }
                         }
