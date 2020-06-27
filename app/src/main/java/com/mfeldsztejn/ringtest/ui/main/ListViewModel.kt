@@ -14,7 +14,6 @@ class ListViewModel(
 
     companion object {
         const val KEY_SUBREDDIT = "subreddit"
-        const val DEFAULT_SUBREDDIT = "kotlin"
     }
 
     init {
@@ -23,10 +22,10 @@ class ListViewModel(
         }
     }
 
-    val currentSubrredit: LiveData<String>
+    val currentSubreddit: LiveData<String>
         get() = savedState.getLiveData(KEY_SUBREDDIT)
 
-    val posts = Transformations.switchMap(currentSubrredit) {
+    val posts = Transformations.switchMap(currentSubreddit) {
         storage.saveSubreddit(it)
         repository
             .postsOfSubreddit(it, 30)
@@ -34,8 +33,7 @@ class ListViewModel(
     }
 
     fun showSubreddit(subreddit: String?) {
-        val finalSubreddit = subreddit ?: DEFAULT_SUBREDDIT
-        if (currentSubrredit.value == finalSubreddit) return
+        if (subreddit == null || currentSubreddit.value == subreddit) return
 
         savedState.set(KEY_SUBREDDIT, subreddit)
     }
@@ -54,7 +52,7 @@ class ListViewModel(
 
     fun clearAll() {
         viewModelScope.launch {
-            currentSubrredit.value?.let {
+            currentSubreddit.value?.let {
                 repository.clearAll(it)
             }
         }

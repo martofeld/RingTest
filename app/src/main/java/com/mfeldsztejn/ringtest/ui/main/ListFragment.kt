@@ -84,7 +84,7 @@ class ListFragment : Fragment(R.layout.main_fragment), Listener {
             adapter.submitData(lifecycle, it)
         }
 
-        viewModel.currentSubrredit.observe(viewLifecycleOwner) {
+        viewModel.currentSubreddit.observe(viewLifecycleOwner) {
             toolbar.title = it
         }
 
@@ -111,7 +111,7 @@ class ListFragment : Fragment(R.layout.main_fragment), Listener {
             override fun onQueryTextChange(newText: String?) = false
         })
         searchView.setOnSearchClickListener {
-            searchView.setQuery(viewModel.currentSubrredit.value, false)
+            searchView.setQuery(viewModel.currentSubreddit.value, false)
         }
     }
 

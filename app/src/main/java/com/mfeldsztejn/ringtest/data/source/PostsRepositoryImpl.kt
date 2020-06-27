@@ -27,7 +27,7 @@ class PostsRepositoryImpl(
     override suspend fun getPostById(postId: Int) = localDataSource.getPostById(postId)
 
     override fun postsOfSubreddit(subreddit: String, pageSize: Int) = Pager(
-        config = PagingConfig(pageSize = 25, initialLoadSize = 100),
+        config = PagingConfig(pageSize = pageSize),
         remoteMediator = PageKeyedRemoteMediator(localDataSource, remoteDataSource, subreddit)
     ) {
         localDataSource.postsBySubreddit(subreddit)

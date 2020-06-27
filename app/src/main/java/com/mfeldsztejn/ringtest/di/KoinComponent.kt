@@ -18,6 +18,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
+import org.koin.dsl.bind
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -69,9 +70,9 @@ val repositoriesModule = module {
         PostsRepositoryImpl(
             remoteDataSource = get(),
             localDataSource = get()
-        ) as PostsRepository
-    }
-    single { PreferencesManager(get()) as Storage }
+        )
+    } bind PostsRepository::class
+    single { PreferencesManager(get()) } bind Storage::class
 }
 
 val viewModelModule = module {
