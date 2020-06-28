@@ -12,18 +12,18 @@ interface PostsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(posts: List<Post>)
 
-    @Query("SELECT * FROM posts WHERE subreddit = :subreddit ORDER BY indexInResponse ASC")
+    @Query("SELECT * FROM posts WHERE subreddit = :subreddit")
     fun postsBySubreddit(subreddit: String): PagingSource<Int, Post>
 
     @Query("DELETE FROM posts WHERE subreddit = :subreddit")
     suspend fun deleteBySubreddit(subreddit: String)
 
-    @Query("UPDATE posts SET isRead = 1 WHERE id = :id")
-    suspend fun markPostAsRead(id: Int)
+    @Query("UPDATE posts SET isRead = 1 WHERE name = :name")
+    suspend fun markPostAsRead(name: String)
 
-    @Query("DELETE FROM posts WHERE id = :id")
-    suspend fun removePost(id: Int)
+    @Query("DELETE FROM posts WHERE name = :name")
+    suspend fun removePost(name: String)
 
-    @Query("SELECT * FROM posts WHERE id = :postId")
-    suspend fun getPostById(postId: Int): Post
+    @Query("SELECT * FROM posts WHERE name = :name")
+    suspend fun postByName(name: String): Post
 }

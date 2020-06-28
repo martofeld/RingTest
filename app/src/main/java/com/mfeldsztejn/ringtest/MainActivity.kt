@@ -65,11 +65,11 @@ class MainActivity : AppCompatActivity(), ListFragment.Listener {
         }
     }
 
-    override fun onDetailSelected(postId: Int, sharedElements: Array<out View>) {
+    override fun onDetailSelected(name: String, sharedElements: Array<out View>) {
         isShowingDetail = true
         supportFragmentManager.commit {
             setReorderingAllowed(true)
-            val newFragment = DetailFragment.newInstance(postId)
+            val newFragment = DetailFragment.newInstance(name)
             if (isTwoPane) {
                 replaceDetailFragment(R.id.detail_fragment, newFragment = newFragment)
             } else {

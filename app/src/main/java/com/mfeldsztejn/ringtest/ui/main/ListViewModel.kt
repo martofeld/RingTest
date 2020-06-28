@@ -38,15 +38,15 @@ class ListViewModel(
         savedState.set(KEY_SUBREDDIT, subreddit)
     }
 
-    fun markPostAsRead(id: Int) {
+    fun markPostAsRead(name: String) {
         viewModelScope.launch {
-            repository.markPostAsRead(id)
+            repository.markPostAsRead(name)
         }
     }
 
-    fun removePost(id: Int) {
+    fun removePost(name: String) {
         viewModelScope.launch {
-            repository.removePost(id)
+            repository.removePost(name)
         }
     }
 

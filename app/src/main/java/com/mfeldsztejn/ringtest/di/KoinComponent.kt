@@ -84,5 +84,5 @@ val viewModelModule = module {
             savedState = handle
         )
     }
-    viewModel { (id: Int) -> DetailViewModel(postId = id, postsRepository = get()) }
+    viewModel { (name: String) -> DetailViewModel(postName = name, postsRepository = get()) }
 }

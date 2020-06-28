@@ -8,8 +8,8 @@ import com.mfeldsztejn.ringtest.GlideRequests
 import com.mfeldsztejn.ringtest.data.models.Post
 
 interface Listener {
-    fun onDismiss(id: Int)
-    fun onOpen(id: Int, vararg sharedElements: View)
+    fun onDismiss(name: String)
+    fun onOpen(name: String, vararg sharedElements: View)
 }
 
 class PostsAdapter(private val glide: GlideRequests, private val listener: Listener) :
@@ -29,7 +29,7 @@ class PostsAdapter(private val glide: GlideRequests, private val listener: Liste
                 oldItem == newItem
 
             override fun areItemsTheSame(oldItem: Post, newItem: Post): Boolean =
-                oldItem.id == newItem.id
+                oldItem.name == newItem.name
         }
     }
 }

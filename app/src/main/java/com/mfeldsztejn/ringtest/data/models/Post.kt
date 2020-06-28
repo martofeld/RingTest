@@ -13,6 +13,7 @@ data class Post(
     val domain: String,
     val thumbnail: String?,
     val author: String,
+    @PrimaryKey
     val name: String,
     val title: String,
     val comments: Int,
@@ -21,9 +22,7 @@ data class Post(
     val url: String,
     val stickied: Boolean,
     @Embedded(prefix = "image_") val image: Image?,
-    val isRead: Boolean = false,
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0
+    val isRead: Boolean = false
 ) {
     var indexInResponse: Int = -1
 }

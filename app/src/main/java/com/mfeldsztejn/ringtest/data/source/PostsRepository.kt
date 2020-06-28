@@ -5,9 +5,9 @@ import androidx.paging.PagingData
 import com.mfeldsztejn.ringtest.data.models.Post
 
 interface PostsRepository {
-    suspend fun markPostAsRead(id: Int)
-    suspend fun removePost(id: Int)
+    suspend fun markPostAsRead(name: String)
+    suspend fun removePost(name: String)
     suspend fun clearAll(subreddit: String)
-    suspend fun getPostById(postId: Int): Post
+    suspend fun getPostByName(name: String): Post
     fun postsOfSubreddit(subreddit: String, pageSize: Int ): LiveData<PagingData<Post>>
 }

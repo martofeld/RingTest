@@ -12,19 +12,19 @@ class PostsRepositoryImpl(
     private val remoteDataSource: PostsRemoteDataSource
 ) : PostsRepository {
 
-    override suspend fun markPostAsRead(id: Int) {
-        localDataSource.markPostAsRead(id)
+    override suspend fun markPostAsRead(name: String) {
+        localDataSource.markPostAsRead(name)
     }
 
-    override suspend fun removePost(id: Int) {
-        localDataSource.removePost(id)
+    override suspend fun removePost(name: String) {
+        localDataSource.removePost(name)
     }
 
     override suspend fun clearAll(subreddit: String) {
         localDataSource.clearAll(subreddit)
     }
 
-    override suspend fun getPostById(postId: Int) = localDataSource.getPostById(postId)
+    override suspend fun getPostByName(name: String) = localDataSource.getPostByName(name)
 
     override fun postsOfSubreddit(subreddit: String, pageSize: Int) = Pager(
         config = PagingConfig(pageSize = pageSize),

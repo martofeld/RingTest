@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.text.Html
 import android.text.util.Linkify
 import android.transition.TransitionInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
@@ -27,8 +30,8 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
     companion object {
         private const val KEY_POST_ID = "post_id"
 
-        fun newInstance(postId: Int) = DetailFragment().apply {
-            arguments = bundleOf(KEY_POST_ID to postId)
+        fun newInstance(name: String) = DetailFragment().apply {
+            arguments = bundleOf(KEY_POST_ID to name)
         }
     }
 
@@ -43,34 +46,46 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
                 )
             }
         }
-    private val postId by lazy { requireArguments()[KEY_POST_ID] as Int }
-    private val viewModel by viewModel<DetailViewModel> { parametersOf(postId) }
+    private val postName by lazy { requireArguments()[KEY_POST_ID] as String }
+    private val viewModel by viewModel<DetailViewModel> { parametersOf(postName) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedElementEnterTransition =
             TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
         postponeEnterTransition()
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        viewModel.post.value?.let {
+            if(!it.image?.url.isNullOrEmpty())
+                inflater.inflate(R.menu.detail_fragment_menu, menu)
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.id.download) {
+            createDocument.launch(viewModel.post.value!!.title)
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        thumbnail.transitionName = getString(R.string.thumbnail_transition_name, postId)
-        title.transitionName = getString(R.string.title_transition_name, postId)
-        author.transitionName = getString(R.string.author_transition_name, postId)
+        thumbnail.transitionName = getString(R.string.thumbnail_transition_name, postName)
+        title.transitionName = getString(R.string.title_transition_name, postName)
+        author.transitionName = getString(R.string.author_transition_name, postName)
         viewModel.post.observe(viewLifecycleOwner) { post ->
+            activity?.invalidateOptionsMenu()
             title.text = post.title
             author.text = post.author
             if (post.image?.url.isNullOrEmpty()) {
-                download.isVisible = false
                 thumbnail.isVisible = false
                 thumbnail_base.setGuidelinePercent(0f)
                 startPostponedEnterTransition()
             } else {
-                download.isVisible = true
-                download.setOnClickListener {
-                    createDocument.launch(post.title)
-                }
                 GlideApp.with(this)
                     .asBitmap()
                     .load(post.image!!.url)
@@ -85,7 +100,6 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
                                     )
                                     activity?.actionBar?.setBackgroundDrawable(ColorDrawable(color))
                                     thumbnail.setBackgroundColor(palette.getDominantColor(color))
-                                    download.drawable.setTint(palette.getMutedColor(color))
                                 }
                             }
                         }

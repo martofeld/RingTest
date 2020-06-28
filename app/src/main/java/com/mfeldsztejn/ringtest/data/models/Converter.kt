@@ -21,4 +21,10 @@ object Converter {
             )
         }
     }
+
+    fun updatePostWithDto(postById: Post, postDTO: PostDTO): Post {
+        return postDtoToPost(postDTO).copy(
+            isRead = postById.isRead
+        )
+    }
 }

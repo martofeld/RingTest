@@ -5,9 +5,9 @@
     <string name="generic_error">Something went wrong</string>
     <string name="retry">Retry</string>
 
-    <string name="title_transition_name">title_%1$d</string>
-    <string name="thumbnail_transition_name">thumbnail_%1$d</string>
-    <string name="author_transition_name">author_%1$d</string>
+    <string name="title_transition_name">title_%1$s</string>
+    <string name="thumbnail_transition_name">thumbnail_%1$s</string>
+    <string name="author_transition_name">author_%1$s</string>
     <string name="comments">%1$d comments</string>
     <string name="download">Download</string>
     <string name="download_channel">Descargas</string>

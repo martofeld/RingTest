@@ -57,20 +57,20 @@ class PostViewHolder(parent: ViewGroup) :
                 post.createdUtc, System.currentTimeMillis(), 0L, DateUtils.FORMAT_ABBREV_ALL
             )
             comments.text = itemView.context.getString(R.string.comments, post.comments)
-            title.transitionName = createTransitionName(R.string.title_transition_name, post.id)
-            author.transitionName = createTransitionName(R.string.author_transition_name, post.id)
+            title.transitionName = createTransitionName(R.string.title_transition_name, post.name)
+            author.transitionName = createTransitionName(R.string.author_transition_name, post.name)
             thumbnail.transitionName =
-                createTransitionName(R.string.thumbnail_transition_name, post.id)
+                createTransitionName(R.string.thumbnail_transition_name, post.name)
             setOnClickListener {
-                listener.onOpen(post.id, title, author, thumbnail)
+                listener.onOpen(post.name, title, author, thumbnail)
             }
             dismiss.setOnClickListener {
-                listener.onDismiss(post.id)
+                listener.onDismiss(post.name)
             }
         }
     }
 
-    private fun createTransitionName(template: Int, id: Int) =
-        itemView.context.getString(template, id)
+    private fun createTransitionName(template: Int, name: String) =
+        itemView.context.getString(template, name)
 
 }

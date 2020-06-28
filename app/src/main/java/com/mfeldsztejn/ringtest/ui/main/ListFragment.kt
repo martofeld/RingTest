@@ -6,7 +6,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.ViewCompat
 import androidx.core.view.doOnPreDraw
@@ -32,7 +31,7 @@ class ListFragment : Fragment(R.layout.main_fragment), Listener {
 
     interface Listener {
         fun onDetailSelected(
-            postId: Int,
+            name: String,
             sharedElements: Array<out View>
         )
     }
@@ -54,7 +53,7 @@ class ListFragment : Fragment(R.layout.main_fragment), Listener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as? AppCompatActivity)?.setSupportActionBar(toolbar)
+//        (activity as? AppCompatActivity)?.setSupportActionBar(toolbar)
         view.doOnPreDraw { startPostponedEnterTransition() }
         list.adapter = adapter.withLoadStateHeaderAndFooter(
             header = PostsLoadStateAdapter(adapter),
@@ -85,7 +84,8 @@ class ListFragment : Fragment(R.layout.main_fragment), Listener {
         }
 
         viewModel.currentSubreddit.observe(viewLifecycleOwner) {
-            toolbar.title = it
+            activity?.title = it
+//            toolbar.title = it
         }
 
         swipe_refresh.setOnRefreshListener {
@@ -124,13 +124,13 @@ class ListFragment : Fragment(R.layout.main_fragment), Listener {
         }
     }
 
-    override fun onDismiss(id: Int) {
-        viewModel.removePost(id)
+    override fun onDismiss(name: String) {
+        viewModel.removePost(name)
     }
 
-    override fun onOpen(id: Int, vararg sharedElements: View) {
-        viewModel.markPostAsRead(id)
-        interactionListener?.onDetailSelected(id, sharedElements)
+    override fun onOpen(name: String, vararg sharedElements: View) {
+        viewModel.markPostAsRead(name)
+        interactionListener?.onDetailSelected(name, sharedElements)
     }
 }
 

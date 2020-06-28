@@ -39,10 +39,10 @@ class PostsRepositoryImplTest {
     @Test
     fun `when repository is requested a post, it is delegated to local data source`() =
         coTest {
-            coEvery { localDataSource.getPostById(any()) } answers { mockk() }
-            repository.getPostById(1)
+            coEvery { localDataSource.getPostByName(any()) } answers { mockk() }
+            repository.getPostByName(1)
 
-            coVerify { localDataSource.getPostById(1) }
+            coVerify { localDataSource.getPostByName(1) }
             verify { remoteDataSource wasNot called }
         }
 }

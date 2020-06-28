@@ -58,9 +58,8 @@ class PageKeyedRemoteMediator(
             )
 
             val items = data.children
-                .map { Converter.postDtoToPost(it) }
-                // Sometimes the reddit api returns more items than required, so drop the extra ones
                 .let { if ((it.size > limit)) it.take(limit) else it }
+                // Sometimes the reddit api returns more items than required, so drop the extra ones
 
             localDataSource.updateBySubreddit(subredditName, items, data.after, loadType == REFRESH)
 

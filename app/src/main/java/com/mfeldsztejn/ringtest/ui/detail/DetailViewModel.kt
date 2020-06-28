@@ -5,11 +5,11 @@ import androidx.lifecycle.liveData
 import com.mfeldsztejn.ringtest.data.source.PostsRepository
 
 class DetailViewModel(
-    private val postId: Int,
+    private val postName: String,
     private val postsRepository: PostsRepository
 ) : ViewModel() {
 
     val post = liveData {
-        emit(postsRepository.getPostById(postId))
+        emit(postsRepository.getPostByName(postName))
     }
 }
