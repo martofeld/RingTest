@@ -3,14 +3,17 @@ package com.mfeldsztejn.ringtest.data.source.local
 import androidx.room.withTransaction
 import com.mfeldsztejn.ringtest.data.models.Post
 import com.mfeldsztejn.ringtest.data.models.entities.SubredditRemoteKey
+import com.mfeldsztejn.ringtest.util.wrapEspressoIdlingResource
 
 class PostsLocalDataSource(private val database: PostsDatabase) {
 
     private val keyDao by lazy { database.keyDao }
     private val postDao by lazy { database.postDao }
 
-    suspend fun getRemoteKeyForSubreddit(subredditName: String) = database.withTransaction {
-        keyDao.remoteKeyByPost(subredditName)
+    suspend fun getRemoteKeyForSubreddit(subredditName: String) = wrapEspressoIdlingResource {
+        database.withTransaction {
+            keyDao.remoteKeyByPost(subredditName)
+        }
     }
 
     suspend fun updateBySubreddit(
@@ -18,7 +21,7 @@ class PostsLocalDataSource(private val database: PostsDatabase) {
         newItems: List<Post>,
         after: String?,
         isRefreshing: Boolean
-    ) {
+    ) = wrapEspressoIdlingResource {
         database.withTransaction {
             if (isRefreshing) {
                 clearAll(subredditName)
@@ -29,13 +32,14 @@ class PostsLocalDataSource(private val database: PostsDatabase) {
         }
     }
 
-    fun postsBySubreddit(subReddit: String) = postDao.postsBySubreddit(subReddit)
+    fun postsBySubreddit(subReddit: String) =
+        wrapEspressoIdlingResource { postDao.postsBySubreddit(subReddit) }
 
-    suspend fun markPostAsRead(id: Int) {
+    suspend fun markPostAsRead(id: Int) = wrapEspressoIdlingResource {
         postDao.markPostAsRead(id)
     }
 
-    suspend fun removePost(id: Int) {
+    suspend fun removePost(id: Int) = wrapEspressoIdlingResource {
         postDao.removePost(id)
     }
 
@@ -46,5 +50,6 @@ class PostsLocalDataSource(private val database: PostsDatabase) {
         }
     }
 
-    suspend fun getPostById(postId: Int) = postDao.getPostById(postId)
+    suspend fun getPostById(postId: Int) =
+        wrapEspressoIdlingResource { postDao.getPostById(postId) }
 }

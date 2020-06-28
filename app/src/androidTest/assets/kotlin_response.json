@@ -1,0 +1,171 @@
+{
+  "kind": "Listing",
+  "data": {
+    "modhash": "",
+    "dist": 10,
+    "children": [
+      {
+        "kind": "t3",
+        "data": {
+          "subreddit": "Kotlin",
+          "title": "Creating a GraphQL Api automatically with Kotlin, Ktor and Postgres",
+          "name": "t3_hgzxb6",
+          "thumbnail": "",
+          "domain": "medium.com",
+          "selftext_html": null,
+          "author": "chris_hinshaw",
+          "num_comments": 0,
+          "stickied": false,
+          "url": "https://medium.com/@chris.hinshaw/creating-a-graphql-database-service-with-kotlin-ktor-and-postgres-18b3a5ea9998",
+          "created_utc": 1593286597.0
+        }
+      },
+      {
+        "kind": "t3",
+        "data": {
+          "subreddit": "Kotlin",
+          "title": "Can JS Kotlin and Java Kotlin interact?",
+          "name": "t3_hgwjbf",
+          "thumbnail": "",
+          "domain": "self.Kotlin",
+          "selftext_html": "<!-- SC_OFF --><div class=\"md\"><p>Title.</p>\n</div><!-- SC_ON -->",
+          "author": "reaper-is-happy",
+          "num_comments": 7,
+          "stickied": false,
+          "url": "https://www.reddit.com/r/Kotlin/comments/hgwjbf/can_js_kotlin_and_java_kotlin_interact/",
+          "created_utc": 1593275256.0
+        }
+      },
+      {
+        "kind": "t3",
+        "data": {
+          "subreddit": "Kotlin",
+          "title": "I have worked with Python extensively. Can any one suggest me resources to get started with Kotlin?",
+          "name": "t3_hgpao5",
+          "thumbnail": "",
+          "domain": "self.Kotlin",
+          "selftext_html": "<!-- SC_OFF --><div class=\"md\"><p>I would prefer it would direct me somehow toward mobile application development for Android.</p>\n</div><!-- SC_ON -->",
+          "author": "guy_with_a_soul",
+          "num_comments": 7,
+          "stickied": false,
+          "url": "https://www.reddit.com/r/Kotlin/comments/hgpao5/i_have_worked_with_python_extensively_can_any_one/",
+          "created_utc": 1593243505.0
+        }
+      },
+      {
+        "kind": "t3",
+        "data": {
+          "subreddit": "Kotlin",
+          "title": "Can I import classes from other modules when using spring boot?",
+          "name": "t3_hgvcac",
+          "thumbnail": "",
+          "domain": "self.Kotlin",
+          "selftext_html": "<!-- SC_OFF --><div class=\"md\"><p>For some weird reasons, I kept on getting Unresolved reference: &lt;ClassName&gt; when I try to import a class from different module.</p>\n\n<p>When I try to remove the spring dependencies in application module and just make a basic kotlin class and import that,, I don&#39;t get those unresolved reference issues. I don&#39;t understand what&#39;s happening now.</p>\n\n<p>First time trying out spring so maybe they&#39;re doing some kind of magic here.</p>\n\n<p>Can anyone check my config? Really weird.</p>\n\n<p>&#x200B;</p>\n\n<pre><code>Application module build.gradle\n\nplugins {\n    kotlin(&quot;jvm&quot;)\n    id(&quot;org.springframework.boot&quot;)\n    id(&quot;io.spring.dependency-management&quot;)\n    kotlin(&quot;plugin.spring&quot;)\n    kotlin(&quot;plugin.jpa&quot;)\n}\n\ndependencies {\n    implementation(project(&quot;:domain&quot;))\n    implementation(&quot;org.springframework.boot:spring-boot-starter-web&quot;)\n    implementation(&quot;org.springframework.boot:spring-boot-starter-data-jpa&quot;)\n    implementation(&quot;com.fasterxml.jackson.module:jackson-module-kotlin&quot;)\n    implementation(&quot;org.jetbrains.kotlin:kotlin-reflect&quot;)\n    implementation(&quot;org.jetbrains.kotlin:kotlin-stdlib-jdk8&quot;)\n    developmentOnly(&quot;org.springframework.boot:spring-boot-devtools&quot;)\n    runtimeOnly(&quot;com.h2database:h2&quot;)\n}\n\nDelivery module\nplugins {\n    kotlin(&quot;jvm&quot;)\n    id(&quot;org.springframework.boot&quot;)\n    id(&quot;io.spring.dependency-management&quot;)\n    kotlin(&quot;plugin.spring&quot;)\n    kotlin(&quot;plugin.jpa&quot;)\n}\n\ndependencies {\n    implementation(project(&quot;:domain&quot;))\n    implementation(project(&quot;:application&quot;))\n\n    implementation(&quot;org.springframework.boot:spring-boot-starter-web&quot;)\n    implementation(&quot;org.springframework.boot:spring-boot-starter-data-jpa&quot;)\n    implementation(&quot;com.fasterxml.jackson.module:jackson-module-kotlin&quot;)\n    implementation(&quot;org.jetbrains.kotlin:kotlin-reflect&quot;)\n    implementation(&quot;org.jetbrains.kotlin:kotlin-stdlib-jdk8&quot;)\n    developmentOnly(&quot;org.springframework.boot:spring-boot-devtools&quot;)\n    runtimeOnly(&quot;com.h2database:h2&quot;)\n    testImplementation(&quot;org.springframework.boot:spring-boot-starter-test&quot;) {\n        exclude(group = &quot;org.junit.vintage&quot;, module = &quot;junit-vintage-engine&quot;)\n    }\n}\n\nRoot gradle.build\nimport org.jetbrains.kotlin.gradle.tasks.KotlinCompile\n\nplugins {\n    kotlin(&quot;jvm&quot;) version &quot;1.3.72&quot;\n    id(&quot;org.springframework.boot&quot;) version &quot;2.3.1.RELEASE&quot;\n    id(&quot;io.spring.dependency-management&quot;) version &quot;1.0.9.RELEASE&quot;\n    kotlin(&quot;plugin.spring&quot;) version &quot;1.3.72&quot;\n    kotlin(&quot;plugin.jpa&quot;) version &quot;1.3.72&quot;\n}\n\nbuildscript {\n    repositories {\n        mavenCentral()\n    }\n}\n\nallprojects {\n    group = &quot;com.example&quot;\n    version = &quot;0.0.1-SNAPSHOT&quot;\n\n    tasks.withType&lt;JavaCompile&gt; {\n        sourceCompatibility = &quot;1.8&quot;\n        targetCompatibility = &quot;1.8&quot;\n    }\n\n    tasks.withType&lt;KotlinCompile&gt; {\n        kotlinOptions {\n            freeCompilerArgs = listOf(&quot;-Xjsr305=strict&quot;)\n            jvmTarget = &quot;1.8&quot;\n        }\n    }\n\n    tasks.withType&lt;Test&gt; {\n        useJUnitPlatform()\n    }\n\n    repositories {\n        mavenCentral()\n    }\n}\n</code></pre>\n</div><!-- SC_ON -->",
+          "author": "kramaster",
+          "num_comments": 0,
+          "stickied": false,
+          "url": "https://www.reddit.com/r/Kotlin/comments/hgvcac/can_i_import_classes_from_other_modules_when/",
+          "created_utc": 1593271183.0
+        }
+      },
+      {
+        "kind": "t3",
+        "data": {
+          "subreddit": "Kotlin",
+          "title": "Creating a BitTorrent client in Kotlin",
+          "name": "t3_hg7ym2",
+          "thumbnail": "",
+          "domain": "kcianfarini.dev",
+          "selftext_html": null,
+          "author": "surpriseskin",
+          "num_comments": 17,
+          "stickied": false,
+          "url": "https://kcianfarini.dev/corbit-bencoding/",
+          "created_utc": 1593179508.0
+        }
+      },
+      {
+        "kind": "t3",
+        "data": {
+          "subreddit": "Kotlin",
+          "title": "A question about nulls",
+          "name": "t3_hgjdy1",
+          "thumbnail": "",
+          "domain": "self.Kotlin",
+          "selftext_html": "<!-- SC_OFF --><div class=\"md\"><p>Hey guys!</p>\n\n<p>I wanted to ask you a (quick?) question about null types in Kotlin. To give you an idea about my background, I&#39;m a little bit of a newbie programmer that started with Python about a year ago. I started because I wanted to automate some of the activities we do at my office and I really liked it, so I dived into it. Now I wanted to try to get into some app programming and I understood that Kotlin is great for Android development.  And It&#39;s also pretty fun actually.</p>\n\n<p>I&#39;m taking some courses and trying things step by step but, maybe mostly because I come from Python as first language, I&#39;m having a really hard time with the static type way of creating variables and stating everything. The hardest thing to understand to me is the &quot;null&quot; type. I can&#39;t understand what it stands for and why I should use a nullable type in general.</p>\n\n<p>In Python everything is dynamically stated, so I don&#39;t have to think about what type of var I&#39;m creating. Here, on the other hand, it seems to be the base of the workflow. And the fact that I don&#39;t seem to properly understand this worries me a bit. Even worse with the null type.</p>\n\n<p>Can you please give me an advice about this? Maybe then I can stop to wrap my head around this with your help.</p>\n\n<p>Thanks guys!</p>\n</div><!-- SC_ON -->",
+          "author": "NicolaM1994",
+          "num_comments": 11,
+          "stickied": false,
+          "url": "https://www.reddit.com/r/Kotlin/comments/hgjdy1/a_question_about_nulls/",
+          "created_utc": 1593217089.0
+        }
+      },
+      {
+        "kind": "t3",
+        "data": {
+          "subreddit": "Kotlin",
+          "title": "Kotlin Flows and Channels for Android",
+          "name": "t3_hg6940",
+          "thumbnail": "",
+          "domain": "youtu.be",
+          "selftext_html": null,
+          "author": "mto96",
+          "num_comments": 3,
+          "stickied": false,
+          "url": "https://youtu.be/xch4aw7hNcY?list=PLEx5khR4g7PL-JwckuOkkc5cR6X5hn6ug",
+          "created_utc": 1593172967.0
+        }
+      },
+      {
+        "kind": "t3",
+        "data": {
+          "subreddit": "Kotlin",
+          "title": "Possible bug with generic where clause and star projection.",
+          "name": "t3_hg6npk",
+          "thumbnail": "",
+          "domain": "self.Kotlin",
+          "selftext_html": "<!-- SC_OFF --><div class=\"md\"><p>It appears that star projections only understand the first where clause. I&#39;m not sure how to best articulate it, so have some code.</p>\n\n<p>Here&#39;s a playground link: <a href=\"https://pl.kotl.in/a6vtI8tLG\">https://pl.kotl.in/a6vtI8tLG</a></p>\n\n<p>Here&#39;s the code:</p>\n\n<pre><code>interface Foo {\n    fun foo()\n}\n\ninterface Bar {\n    fun bar()\n}\n\ninterface FooAndBar&lt;T&gt; where T: Foo, T: Bar {\n    val value: T\n}\n\ninterface BarAndFoo&lt;T&gt; where T: Bar, T: Foo {\n    val value: T\n}\n\nfun doSomething(thing: FooAndBar&lt;*&gt;) {\n    thing.value.foo() // fine\n    thing.value.bar() // compile error\n}\n\nfun doSomething(thing: BarAndFoo&lt;*&gt;) {\n    thing.value.foo() // compile error\n    thing.value.bar() // fine\n}\n</code></pre>\n</div><!-- SC_ON -->",
+          "author": "ragnese",
+          "num_comments": 5,
+          "stickied": false,
+          "url": "https://www.reddit.com/r/Kotlin/comments/hg6npk/possible_bug_with_generic_where_clause_and_star/",
+          "created_utc": 1593174583.0
+        }
+      },
+      {
+        "kind": "t3",
+        "data": {
+          "subreddit": "Kotlin",
+          "title": "Spring Security Webflux with Kotlin coroutines explained",
+          "name": "t3_hg90t1",
+          "thumbnail": "",
+          "domain": "self.Kotlin",
+          "selftext_html": "<!-- SC_OFF --><div class=\"md\"><p>Hi there!</p>\n\n<p>I just publish a small contribution to the Kotlin and Spring Security Webflux community. If you are struggling to find out how to add security to your reactive project I created this little repository to explain how it works. Also I added a little frontend app and a simple CI/CD pipeline. It&#39;s a work in progress but I think that it could give you some hints to you.</p>\n\n<p><a href=\"https://github.com/soasada/kotlin-coroutines-webflux-security\">https://github.com/soasada/kotlin-coroutines-webflux-security</a> </p>\n\n<p>Please feel free to ask me questions, suggestions or contributions. Hope you enjoy it</p>\n</div><!-- SC_ON -->",
+          "author": "soasada",
+          "num_comments": 0,
+          "stickied": false,
+          "url": "https://www.reddit.com/r/Kotlin/comments/hg90t1/spring_security_webflux_with_kotlin_coroutines/",
+          "created_utc": 1593183163.0
+        }
+      },
+      {
+        "kind": "t3",
+        "data": {
+          "subreddit": "Kotlin",
+          "title": "How do I bring array information from one intent to another?",
+          "name": "t3_hfzlpy",
+          "thumbnail": "",
+          "domain": "self.Kotlin",
+          "selftext_html": "<!-- SC_OFF --><div class=\"md\"><p>As in I have a home page and a game page for my app. On the home screen I get the list of names of players. I want to know how to transfer that array to the next page of the app. I’ve tried writing to a file, but File() crashes the app. This is the missing link between both pages.</p>\n\n<p>Might be a rookie mistake, but I’ve tried for the past two days trying.</p>\n</div><!-- SC_ON -->",
+          "author": "SirMarbles",
+          "num_comments": 7,
+          "stickied": false,
+          "url": "https://www.reddit.com/r/Kotlin/comments/hfzlpy/how_do_i_bring_array_information_from_one_intent/",
+          "created_utc": 1593139648.0
+        }
+      }
+    ],
+    "after": "t3_hfzlpy",
+    "before": null
+  }
+}

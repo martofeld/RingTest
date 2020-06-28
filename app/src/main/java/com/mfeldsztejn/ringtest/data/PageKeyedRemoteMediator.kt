@@ -55,7 +55,7 @@ class PageKeyedRemoteMediator(
                 after = loadKey,
                 before = null,
                 limit = limit
-            ).data
+            )
 
             val items = data.children
                 .map { Converter.postDtoToPost(it) }

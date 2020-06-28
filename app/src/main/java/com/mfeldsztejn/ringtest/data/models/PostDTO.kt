@@ -28,7 +28,7 @@ data class SourceDTO(val url: String, val width: Int, val height: Int)
 
 data class PostDTO(val kind: String, val data: PostDataDTO)
 
-data class PostsResponseDTO(val type: String, val data: PostsDataDTO)
+data class PostsResponseDTO(val kind: String, val data: PostsDataDTO)
 
 data class PostsDataDTO(
     val modhash: String,

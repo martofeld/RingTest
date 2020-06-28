@@ -40,6 +40,21 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
+
+    testBuildType = "debug"
+
+    sourceSets {
+        getByName("test") {
+            java.srcDirs("$projectDir/src/testShared/java")
+        }
+        getByName("androidTest") {
+            java.srcDirs("$projectDir/src/testShared/java")
+        }
+    }
+
+    packagingOptions {
+        exclude("META-INF/*")
+    }
 }
 
 val roomVersion = "2.3.0-alpha01"
@@ -88,16 +103,27 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:$glideVersion")
     kapt("com.github.bumptech.glide:compiler:$glideVersion")
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.2")
+    debugImplementation("androidx.test.espresso:espresso-idling-resource:3.2.0")
+
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.2")
     testImplementation("io.mockk:mockk:1.10.0")
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.7")
     testImplementation("androidx.paging:paging-common:3.0.0-SNAPSHOT")
     testImplementation("com.willowtreeapps.assertk:assertk:0.21")
+
+    androidTestImplementation("androidx.test:rules:1.3.0-rc01")
+    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.7")
+    androidTestImplementation("io.mockk:mockk-android:1.10.0")
+    androidTestImplementation("androidx.test:runner:1.2.0")
+    androidTestImplementation("androidx.test:core:1.2.0")
     androidTestImplementation("androidx.test.ext:junit:1.1.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.2.0")
-
-
+    androidTestImplementation("androidx.test.espresso:espresso-contrib:3.2.0")
+    androidTestImplementation("org.koin:koin-test:$koinVersion") {
+        // koin includes mockito and we use mockk
+        exclude("org.mockito")
+    }
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().all {

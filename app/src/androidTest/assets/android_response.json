@@ -1,0 +1,258 @@
+{
+  "kind": "Listing",
+  "data": {
+    "modhash": "",
+    "dist": 10,
+    "children": [
+      {
+        "kind": "t3",
+        "data": {
+          "subreddit": "Android",
+          "title": "Saturday APPreciation (Jun 27 2020) - Your weekly app recommendation/request thread!",
+          "name": "t3_hgrqi8",
+          "thumbnail": "self",
+          "domain": "self.Android",
+          "selftext_html": "<!-- SC_OFF --><div class=\"md\"><p>Note 1. <a href=\"https://www.reddit.com/r/Android/wiki/index#wiki_apps\">Check out our apps wiki</a> for previous threads and apps curated by the reddit Android community!  </p>\n\n<p><a href=\"https://github.com/d4rken/reddit-android-appstore/releases\">Download the official /r/Android App Store based on our wiki!</a></p>\n\n<p>Note 2. Join us at <strong><a href=\"/r/MoronicMondayAndroid\">/r/MoronicMondayAndroid</a></strong>, a sub serving as a repository for our retired weekly threads. Just pick any thread and Ctrl-F your way to wisdom! </p>\n\n<p>Note 2. Join our IRC, and Telegram chat-rooms! <a href=\"https://www.reddit.com/r/Android/wiki/index#wiki_.2Fr.2Fandroid_chat_rooms\">Please see our wiki for instructions.</a></p>\n\n<hr/>\n\n<p>This weekly Saturday thread is for:<br/>\n* App promotion,<br/>\n* App praise/sharing  </p>\n\n<hr/>\n\n<p><strong>Rules:</strong>  </p>\n\n<p>1) If you are a developer, you may promote your own app ONLY under the bolded, distinguished moderator comment. Users: if you think someone is trying to bypass this rule by promoting their app in the general thread, click the report button so we can take a look!</p>\n</div><!-- SC_ON -->",
+          "preview": {
+            "images": [
+              {
+                "source": {
+                  "url": "https://external-preview.redd.it/6ulmkSTq-l1kGcZml1mo9fj3xh5UuuT07zd45_NfgZQ.jpg?auto=webp&s=74dbe53f7162887e95083c564b1a929fe0e8a16f",
+                  "width": 280,
+                  "height": 280
+                }
+              }
+            ]
+          },
+          "author": "AutoModerator",
+          "num_comments": 33,
+          "stickied": true,
+          "url": "https://www.reddit.com/r/Android/comments/hgrqi8/saturday_appreciation_jun_27_2020_your_weekly_app/",
+          "created_utc": 1593256287.0
+        }
+      },
+      {
+        "kind": "t3",
+        "data": {
+          "subreddit": "Android",
+          "title": "US Senators introduce bill to FORCE all device and software providers in the US to build backdoors into their products. Bill would make encryption illegal for American-made Android software unless it had a backdoor for the US government",
+          "name": "t3_hh0527",
+          "thumbnail": "self",
+          "domain": "self.Android",
+          "selftext_html": "<!-- SC_OFF --><div class=\"md\"><p>(Original post removed due to technicality. Repost:)</p>\n\n<p><strong>Article:</strong></p>\n\n<p><a href=\"https://www.androidauthority.com/lawful-access-to-encrypted-data-1132922/\">https://www.androidauthority.com/lawful-access-to-encrypted-data-1132922/</a></p>\n\n<p>Full Bill: <a href=\"https://www.judiciary.senate.gov/press/rep/releases/graham-cotton-blackburn-introduce-balanced-solution-to-bolster-national-security-end-use-of-warrant-proof-encryption-that-shields-criminal-activity#:%7E:text=The%20Lawful%20Access%20to%20Encrypted%20Data%20Act%20would%20bring%20an,devices%2C%20platforms%2C%20and%20systems.&amp;text=This%20type%20of%20%E2%80%9Cwarrant%2Dproof,the%20internet%20for%20illicit%20purposes.\">Click here</a></p>\n\n<p><strong>Relevance to Android:</strong></p>\n\n<p>Think of all the Android apps/software you use that use encryption. If this bill passes, all such software made by American companies or organizations (Signal, Whatsapp, etc.), would be illegal (at least for Americans) unless the software had a backdoor built into it for the US government to be able to access the encrypted data.</p>\n\n<p>The law establishes a precedent for other nations to follow, and for further legislation to be passed, such as requiring encryption data to be unencrypted on demand (like in Australia), or outlawing encryption outright. The EFF has already spoken out about it (it&#39;s even worse than the EARN IT Act from three months ago). For these reasons, even non-Americans should be concerned.</p>\n\n<p>It does nothing to stop criminals, either. They will continue downloading and using encrypted software, or encrypting data on backdoored devices. All it will do is give a <strong>huge</strong> blow to average Americans who use American software. There will be obvious security problems having a built-in backdoor (criminals and hackers would exploit it), and the bill would set the precedent that encryption and privacy are bad/illegal/etc. Many businesses might leave the country, and people would lose their privacy.</p>\n\n<p><strong>If you are an American:</strong></p>\n\n<p><a href=\"https://www.senate.gov/general/contact_information/senators_cfm.cfm\">Contact your two US senators</a>. Tell them to vote <strong>NO</strong> on the <strong>Lawful Access to Encrypted Data Act</strong></p>\n\n<p><a href=\"https://www.senate.gov/general/contact_information/senators_cfm.cfm\">https://www.senate.gov/general/contact_information/senators_cfm.cfm</a></p>\n\n<p>If your senator says they support the bill because &quot;encryption helps child traffickers and terrorists&quot;, respond with the aforementioned reasons listed above. The reality line is: it won&#39;t stop criminals.</p>\n</div><!-- SC_ON -->",
+          "author": "333929",
+          "num_comments": 130,
+          "stickied": false,
+          "url": "https://www.reddit.com/r/Android/comments/hh0527/us_senators_introduce_bill_to_force_all_device/",
+          "created_utc": 1593287318.0
+        }
+      },
+      {
+        "kind": "t3",
+        "data": {
+          "subreddit": "Android",
+          "title": "That's a first in Android. After Apple ditched 32bit support in iOS 11 and macos Catalina, Google is now following with Android. This is a x86_64 emulator running w/o 32bit support. This makes the way for ARM CPUs without aarch32 ISA support like the new Cortex-A65.",
+          "name": "t3_hgp50j",
+          "thumbnail": "https://b.thumbs.redditmedia.com/4wtY29nprQMSb-bMG5g6wSvht9YgT1G7YeHqp-dbPaY.jpg",
+          "domain": "twitter.com",
+          "selftext_html": null,
+          "preview": {
+            "images": [
+              {
+                "source": {
+                  "url": "https://external-preview.redd.it/coTLlBN7jFoxUARFFBIYD3vOcLX7pQlcYLKwWyTKu54.jpg?auto=webp&s=fcec92d6ef3e85abe72122d27f4c3f9e406a2558",
+                  "width": 140,
+                  "height": 78
+                }
+              }
+            ]
+          },
+          "author": "Tonybishnoi",
+          "num_comments": 192,
+          "stickied": false,
+          "url": "https://twitter.com/luca020400/status/1276566566776320001?s=19",
+          "created_utc": 1593242704.0
+        }
+      },
+      {
+        "kind": "t3",
+        "data": {
+          "subreddit": "Android",
+          "title": "Firefox Preview is adding support for three new add-ons",
+          "name": "t3_hgmuw9",
+          "thumbnail": "https://b.thumbs.redditmedia.com/tSRY4mjMi7uuStGsiYnzYSgt-yYFuAfYLDzkkbI4kbQ.jpg",
+          "domain": "androidpolice.com",
+          "selftext_html": null,
+          "preview": {
+            "images": [
+              {
+                "source": {
+                  "url": "https://external-preview.redd.it/EHhRtaDJkB_lqQ99UZNyOgZIVdy1RLctgn5oYdyfVNk.jpg?auto=webp&s=f7efd364c0e7fd8fc6a1fb8fc29f2a3150269057",
+                  "width": 1500,
+                  "height": 800
+                }
+              }
+            ]
+          },
+          "author": "SL_Lee",
+          "num_comments": 95,
+          "stickied": false,
+          "url": "https://www.androidpolice.com/2020/06/26/firefox-preview-is-adding-support-for-three-new-add-ons/",
+          "created_utc": 1593231076.0
+        }
+      },
+      {
+        "kind": "t3",
+        "data": {
+          "subreddit": "Android",
+          "title": "Adding Channels to YouTube Music",
+          "name": "t3_hgzyk1",
+          "thumbnail": "self",
+          "domain": "self.Android",
+          "selftext_html": "<!-- SC_OFF --><div class=\"md\"><p>So a lot of people complain that they don&#39;t want their YouTube video preferences to cross pollinate into their YouTube music preferences. One thing you can do is to create channels in your YouTube account and switch to whatever channel you want.</p>\n\n<p>1 Login to YouTube<br/>\n2 Go to Settings<br/>\n3 In the middle of the screen you&#39;ll see Add or manage your channel(s)<br/>\n4 Add a channel called Music<br/>\n5 Go back to YouTube Music, select your Account, and switch to the Music channel<br/>\n6 Customize your Music channel tastes<br/>\n7 Done</p>\n\n<p>I think you can have up to 100 channels so if you want nothing but a certain genre of music then just create a channel for it.</p>\n</div><!-- SC_ON -->",
+          "author": "ChicoRavioli",
+          "num_comments": 4,
+          "stickied": false,
+          "url": "https://www.reddit.com/r/Android/comments/hgzyk1/adding_channels_to_youtube_music/",
+          "created_utc": 1593286708.0
+        }
+      },
+      {
+        "kind": "t3",
+        "data": {
+          "subreddit": "Android",
+          "title": "Sony Xperia 1 ii Review | Worth that premium price?",
+          "name": "t3_hgtt6j",
+          "domain": "youtube.com",
+          "selftext_html": null,
+          "preview": {
+            "images": [
+              {
+                "source": {
+                  "url": "https://external-preview.redd.it/hjZ_elgIOv81yuv8MJZmY9PNeKQZkKVnIasbiijXjXI.jpg?auto=webp&s=0dfe1ed78beda7a989954d0163f10a8167d057b5",
+                  "width": 480,
+                  "height": 360
+                }
+              }
+            ]
+          },
+          "author": "xander1122",
+          "num_comments": 17,
+          "stickied": false,
+          "url": "https://www.youtube.com/watch?v=qPb2AP8ElDk",
+          "created_utc": 1593265726.0
+        }
+      },
+      {
+        "kind": "t3",
+        "data": {
+          "subreddit": "Android",
+          "title": "Fixers Know What ‘Repairable’ Means—Now There’s an (EU) Standard for It",
+          "name": "t3_hg5dm0",
+          "thumbnail": "https://b.thumbs.redditmedia.com/sLA8P5uGF5_2WgCf_t7on922T5IVA-DRkYQAjHbqlpk.jpg",
+          "domain": "de.ifixit.com",
+          "selftext_html": null,
+          "preview": {
+            "images": [
+              {
+                "source": {
+                  "url": "https://external-preview.redd.it/-2aIswUr0rikwmh2mA3Ug77PM3ZK8F4RezCqDJgjOA4.jpg?auto=webp&s=b9b10a9e04155622d37b642fe369ba86656570b0",
+                  "width": 1600,
+                  "height": 1200
+                }
+              }
+            ]
+          },
+          "author": "zanedow",
+          "num_comments": 334,
+          "stickied": false,
+          "url": "https://de.ifixit.com/News/35879/repairability-standard-en45554",
+          "created_utc": 1593169078.0
+        }
+      },
+      {
+        "kind": "t3",
+        "data": {
+          "subreddit": "Android",
+          "title": "The Moto X was one of the best Android phones — it's time to bring it back",
+          "name": "t3_hgc2g7",
+          "thumbnail": "https://b.thumbs.redditmedia.com/dkUJS6bGGVIMeNSaZBaClc4XFlZkXqFg8jG4oAODg1I.jpg",
+          "domain": "androidcentral.com",
+          "selftext_html": null,
+          "preview": {
+            "images": [
+              {
+                "source": {
+                  "url": "https://external-preview.redd.it/4riSGxCJn1iz5sxgLp2X8Rri18iAq76M6nKN2Ss5bq4.jpg?auto=webp&s=226073bd3a59327b4de0c2aca3a2f19f097b12b0",
+                  "width": 800,
+                  "height": 600
+                }
+              }
+            ]
+          },
+          "author": "DimVl",
+          "num_comments": 188,
+          "stickied": false,
+          "url": "https://www.androidcentral.com/the-moto-x-was-one-best-android-phones-its-time-bring-back?utm_source=ac_fb&utm_medium=fb_link&utm_content=91049&utm_campaign=social",
+          "created_utc": 1593192903.0
+        }
+      },
+      {
+        "kind": "t3",
+        "data": {
+          "subreddit": "Android",
+          "title": "LG Velvet review: sleek, not smooth",
+          "name": "t3_hgq20l",
+          "thumbnail": "https://b.thumbs.redditmedia.com/G494IQwJ9ZdhZQTQ7_CjUtz7Q1OVUgELq7zRIeNwuBE.jpg",
+          "domain": "theverge.com",
+          "selftext_html": null,
+          "preview": {
+            "images": [
+              {
+                "source": {
+                  "url": "https://external-preview.redd.it/sRbefZ01Zt0Yugk3Xu_Y2J25Z8qadgmnC7uXEPhNuNU.jpg?auto=webp&s=dd949e50a1f40730e39f23e6181bd77a4367754c",
+                  "width": 1200,
+                  "height": 628
+                }
+              }
+            ]
+          },
+          "author": "debrocker",
+          "num_comments": 38,
+          "stickied": false,
+          "url": "https://www.theverge.com/21304097/lg-velvet-phone-review-price-us-specs-camera",
+          "created_utc": 1593247526.0
+        }
+      },
+      {
+        "kind": "t3",
+        "data": {
+          "subreddit": "Android",
+          "title": "[MIUI Class Vol.12] Introducing Sound Assistant In MIUI 12- Know More! - Beta Team - Mi Community - Xiaomi",
+          "name": "t3_hgqoui",
+          "thumbnail": "https://a.thumbs.redditmedia.com/CCspVX6XNz241xIpdsLHgf5EpBl1h6px-4RUJuSkuO0.jpg",
+          "domain": "c.mi.com",
+          "selftext_html": null,
+          "preview": {
+            "images": [
+              {
+                "source": {
+                  "url": "https://external-preview.redd.it/ElzqLJj-lP42fO1DxcZL2heAYySYkwDuNhwg97EObVU.jpg?auto=webp&s=5ee22334d1d4f1bf1c5ea7a3753a609ccf441b77",
+                  "width": 776,
+                  "height": 432
+                }
+              }
+            ]
+          },
+          "author": "MMyRRedditAAccount",
+          "num_comments": 17,
+          "stickied": false,
+          "url": "https://c.mi.com/thread-3144180-1-0.html",
+          "created_utc": 1593250886.0
+        }
+      }
+    ],
+    "after": "t3_hgqoui",
+    "before": null
+  }
+}
