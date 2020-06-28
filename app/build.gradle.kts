@@ -86,7 +86,7 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:$navigationVersion")
 
     // Paging
-    implementation("androidx.paging:paging-runtime:3.0.0-SNAPSHOT")
+    implementation("androidx.paging:paging-runtime:3.0.0-alpha02")
 
     // Async
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7")
