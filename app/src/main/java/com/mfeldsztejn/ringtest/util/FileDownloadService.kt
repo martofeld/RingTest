@@ -24,9 +24,9 @@ class FileDownloadService : Service() {
         super.onCreate()
         val notification = NotificationManager.createServiceNotification(applicationContext)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            startForeground(123, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC)
+            startForeground(SERVICE_ID, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC)
         } else {
-            startForeground(123, notification)
+            startForeground(SERVICE_ID, notification)
         }
     }
 
@@ -60,6 +60,7 @@ class FileDownloadService : Service() {
     }
 
     companion object {
+        private const val SERVICE_ID = 7753
         private const val IMAGE_EXTRA = "image_extra"
         private const val OUTPUT_FILE_URI_EXTRA = "output_file_uri_extra"
 

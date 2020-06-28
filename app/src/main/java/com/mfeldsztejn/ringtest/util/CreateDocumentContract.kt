@@ -11,9 +11,12 @@ import androidx.activity.result.contract.ActivityResultContract
  */
 class CreateDocumentContract(private val mimeType: String = "image/png") : ActivityResultContract<String, Uri?>() {
     override fun createIntent(context: Context, input: String?): Intent {
+        val title = input?.run {
+            if(endsWith(".")) dropLast(1) else this
+        }
         return Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
             type = mimeType
-            putExtra(Intent.EXTRA_TITLE, input)
+            putExtra(Intent.EXTRA_TITLE, title)
         }
 
     }
