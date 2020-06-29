@@ -42,7 +42,7 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
                 FileDownloadService.startService(
                     requireContext(),
                     uri.toString(),
-                    viewModel.post.value?.image!!
+                    viewModel.postDetail.value!!.image!!
                 )
             }
         }
@@ -53,20 +53,19 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
         super.onCreate(savedInstanceState)
         sharedElementEnterTransition =
             TransitionInflater.from(requireContext()).inflateTransition(android.R.transition.move)
-        postponeEnterTransition()
         setHasOptionsMenu(true)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        viewModel.post.value?.let {
-            if(!it.image?.url.isNullOrEmpty())
+        viewModel.postDetail.value?.let {
+            if (!it.image?.url.isNullOrEmpty())
                 inflater.inflate(R.menu.detail_fragment_menu, menu)
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(item.itemId == R.id.download) {
+        if (item.itemId == R.id.download) {
             createDocument.launch(viewModel.post.value!!.title)
         }
         return super.onOptionsItemSelected(item)
@@ -74,21 +73,22 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        thumbnail.transitionName = getString(R.string.thumbnail_transition_name, postName)
         title.transitionName = getString(R.string.title_transition_name, postName)
         author.transitionName = getString(R.string.author_transition_name, postName)
         viewModel.post.observe(viewLifecycleOwner) { post ->
-            activity?.invalidateOptionsMenu()
             title.text = post.title
             author.text = post.author
-            if (post.image?.url.isNullOrEmpty()) {
+        }
+
+        viewModel.postDetail.observe(viewLifecycleOwner) { detail ->
+            activity?.invalidateOptionsMenu()
+            if (detail.image?.url.isNullOrEmpty()) {
                 thumbnail.isVisible = false
                 thumbnail_base.setGuidelinePercent(0f)
-                startPostponedEnterTransition()
             } else {
                 GlideApp.with(this)
                     .asBitmap()
-                    .load(post.image!!.url)
+                    .load(detail.image!!.url)
                     .fitCenter()
                     .doOnFinish { bitmap ->
                         if (bitmap != null) {
@@ -98,26 +98,24 @@ class DetailFragment : Fragment(R.layout.detail_fragment) {
                                         requireContext(),
                                         R.color.colorPrimary
                                     )
-                                    activity?.actionBar?.setBackgroundDrawable(ColorDrawable(color))
                                     thumbnail.setBackgroundColor(palette.getDominantColor(color))
                                 }
                             }
                         }
-                        startPostponedEnterTransition()
                     }
                     .into(thumbnail)
             }
-            if (post.text != null) {
+            if (detail.text != null) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                    text.text = Html.fromHtml(post.text, Html.FROM_HTML_MODE_LEGACY)
+                    text.text = Html.fromHtml(detail.text, Html.FROM_HTML_MODE_LEGACY)
                 } else {
                     @Suppress("DEPRECATION")
-                    text.text = Html.fromHtml(post.text)
+                    text.text = Html.fromHtml(detail.text)
                 }
             } else {
                 text.isVisible = false
             }
-            url.text = post.url
+            url.text = detail.url
             Linkify.addLinks(url, Linkify.WEB_URLS)
         }
     }

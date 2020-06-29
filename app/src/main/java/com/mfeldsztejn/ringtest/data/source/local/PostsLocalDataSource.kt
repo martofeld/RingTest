@@ -1,8 +1,10 @@
 package com.mfeldsztejn.ringtest.data.source.local
 
+import android.util.Log
 import androidx.room.withTransaction
 import com.mfeldsztejn.ringtest.data.models.Converter
 import com.mfeldsztejn.ringtest.data.models.PostDTO
+import com.mfeldsztejn.ringtest.data.models.PostDataDTO
 import com.mfeldsztejn.ringtest.data.models.entities.SubredditRemoteKey
 import com.mfeldsztejn.ringtest.util.wrapEspressoIdlingResource
 import kotlinx.coroutines.*
@@ -22,24 +24,22 @@ class PostsLocalDataSource(private val database: PostsDatabase) {
 
     suspend fun updateBySubreddit(
         subredditName: String,
-        newItems: List<PostDTO>,
-        after: String?,
-        isRefreshing: Boolean
+        newItems: List<PostDTO<PostDataDTO>>,
+        after: String?
     ) = wrapEspressoIdlingResource {
         database.withTransaction {
-//            if (isRefreshing) {
-//                clearAll(subredditName)
-//            }
-
-            val items = newItems.map {
+            val items = newItems.map { postDto ->
                 scope.async {
                     try {
-                        Converter.updatePostWithDto(
-                            postDao.postByName(it.data.name),
-                            it
-                        )
+                        postDao.postByName(postDto.data.name)?.let { post ->
+                            Converter.updatePostWithDto(
+                                post,
+                                postDto
+                            )
+                        } ?: Converter.postDtoToPost(postDto)
                     } catch (e: Exception) {
-                        Converter.postDtoToPost(it)
+                        Log.e("MY_TAG", "Error", e)
+                        Converter.postDtoToPost(postDto)
                     }
                 }
             }.awaitAll()

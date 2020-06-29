@@ -20,9 +20,9 @@ class PostsRepositoryImplTest {
     fun `when repository is requested to remove post, it is delegated to local data source`() =
         coTest {
             coEvery { localDataSource.removePost(any()) } answers { Unit }
-            repository.removePost(1)
+            repository.removePost("postname")
 
-            coVerify { localDataSource.removePost(1) }
+            coVerify { localDataSource.removePost("postname") }
             verify { remoteDataSource wasNot called }
         }
 
@@ -30,9 +30,9 @@ class PostsRepositoryImplTest {
     fun `when repository is requested to mark post as read, it is delegated to local data source`() =
         coTest {
             coEvery { localDataSource.markPostAsRead(any()) } answers { Unit }
-            repository.markPostAsRead(1)
+            repository.markPostAsRead("postname")
 
-            coVerify { localDataSource.markPostAsRead(1) }
+            coVerify { localDataSource.markPostAsRead("postname") }
             verify { remoteDataSource wasNot called }
         }
 
@@ -40,9 +40,9 @@ class PostsRepositoryImplTest {
     fun `when repository is requested a post, it is delegated to local data source`() =
         coTest {
             coEvery { localDataSource.getPostByName(any()) } answers { mockk() }
-            repository.getPostByName(1)
+            repository.getPostByName("postname")
 
-            coVerify { localDataSource.getPostByName(1) }
+            coVerify { localDataSource.getPostByName("postname") }
             verify { remoteDataSource wasNot called }
         }
 }

@@ -1,12 +1,10 @@
 package com.mfeldsztejn.ringtest.data
 
-import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.LoadType.*
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import com.mfeldsztejn.ringtest.data.models.Converter
 import com.mfeldsztejn.ringtest.data.models.Post
 import com.mfeldsztejn.ringtest.data.source.local.PostsLocalDataSource
 import com.mfeldsztejn.ringtest.data.source.remote.PostsRemoteDataSource
@@ -61,7 +59,7 @@ class PageKeyedRemoteMediator(
                 .let { if ((it.size > limit)) it.take(limit) else it }
                 // Sometimes the reddit api returns more items than required, so drop the extra ones
 
-            localDataSource.updateBySubreddit(subredditName, items, data.after, loadType == REFRESH)
+            localDataSource.updateBySubreddit(subredditName, items, data.after)
 
             return MediatorResult.Success(endOfPaginationReached = items.isEmpty())
         } catch (e: IOException) {

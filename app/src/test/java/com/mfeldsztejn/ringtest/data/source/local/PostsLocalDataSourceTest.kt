@@ -2,22 +2,28 @@ package com.mfeldsztejn.ringtest.data.source.local
 
 import androidx.room.R
 import androidx.room.withTransaction
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import com.mfeldsztejn.ringtest.data.models.Post
+import com.mfeldsztejn.ringtest.data.models.PostDTO
+import com.mfeldsztejn.ringtest.data.models.PostDataDTO
 import com.mfeldsztejn.ringtest.data.models.entities.SubredditRemoteKey
-import com.mfeldsztejn.ringtest.utils.CoroutinesDispatcherExtension
-import com.mfeldsztejn.ringtest.utils.InstantExecutorExtension
-import com.mfeldsztejn.ringtest.utils.coTest
-import com.mfeldsztejn.ringtest.utils.relaxedMockk
+import com.mfeldsztejn.ringtest.utils.*
 import io.mockk.*
-import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
+import org.junit.After
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
+import org.junit.runner.RunWith
 
-@ExtendWith(InstantExecutorExtension::class, CoroutinesDispatcherExtension::class)
+@RunWith(AndroidJUnit4::class)
 class PostsLocalDataSourceTest {
+
+    @[JvmField Rule]
+    val instantExecutorRule = RuleOfExtension(InstantExecutorExtension())
+
+    @[JvmField Rule]
+    val coroutinesRule = RuleOfExtension(CoroutinesDispatcherExtension())
 
     private val postsDao = relaxedMockk<PostsDao>()
     private val remoteKeyDao = relaxedMockk<RemoteKeyDao>()
@@ -27,7 +33,7 @@ class PostsLocalDataSourceTest {
         every { keyDao } returns remoteKeyDao
     }
 
-    @BeforeEach
+    @Before
     fun setUp() {
         mockkStatic("androidx.room.RoomDatabaseKt")
 
@@ -37,7 +43,7 @@ class PostsLocalDataSourceTest {
         }
     }
 
-    @AfterEach
+    @After
     fun tearDown() {
         unmockkStatic("androidx.room.RoomDatabaseKt")
     }
@@ -55,16 +61,16 @@ class PostsLocalDataSourceTest {
     fun `when adding new posts, no refresh, it adds the key and the new posts`() = coTest {
         val capturedKey = slot<SubredditRemoteKey>()
         coEvery { remoteKeyDao.insert(capture(capturedKey)) } just runs
-        val newItems = listOf<Post>(mockk(), mockk(), mockk()) // Insert 3 posts
+        val newItems = listOf<PostDTO<PostDataDTO>>(mockk(), mockk(), mockk()) // Insert 3 posts
 
-        localDataSource.updateBySubreddit("android", newItems, "after", false)
+        localDataSource.updateBySubreddit("android", newItems, "after")
 
         with(capturedKey.captured) {
             assertThat(nextPageKey).isEqualTo("after")
             assertThat(subreddit).isEqualTo("android")
         }
         coVerify {
-            postsDao.insertAll(newItems)
+            postsDao.insertAll(any())
             remoteKeyDao.insert(capturedKey.captured)
         }
         coVerify(exactly = 0) {
@@ -78,17 +84,21 @@ class PostsLocalDataSourceTest {
         coTest {
             val capturedKey = slot<SubredditRemoteKey>()
             coEvery { remoteKeyDao.insert(capture(capturedKey)) } just runs
-            val newItems = listOf<Post>(mockk(), mockk(), mockk()) // Insert 3 posts
+            val newItems = listOf<PostDTO<PostDataDTO>>(relaxedMockk{
+                every { data } returns relaxedMockk()
+            }, relaxedMockk{
+                every { data } returns relaxedMockk()
+            }, relaxedMockk{
+                every { data } returns relaxedMockk()
+            }) // Insert 3 posts
 
-            localDataSource.updateBySubreddit("android", newItems, "after", true)
+            localDataSource.updateBySubreddit("android", newItems, "after")
 
             with(capturedKey.captured) {
                 assertThat(nextPageKey).isEqualTo("after")
                 assertThat(subreddit).isEqualTo("android")
             }
             coVerifyOrder {
-                postsDao.deleteBySubreddit("android")
-                remoteKeyDao.deleteBySubreddit("android")
                 remoteKeyDao.insert(capturedKey.captured)
                 postsDao.insertAll(any())
             }
@@ -96,7 +106,7 @@ class PostsLocalDataSourceTest {
 
     @Test
     fun `when marking post as read, executes update in database`() = coTest {
-        localDataSource.markPostAsRead(1)
-        coVerify { localDataSource.markPostAsRead(1) }
+        localDataSource.markPostAsRead("name")
+        coVerify { localDataSource.markPostAsRead("name") }
     }
 }

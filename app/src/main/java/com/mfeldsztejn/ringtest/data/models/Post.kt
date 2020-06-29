@@ -1,6 +1,9 @@
 package com.mfeldsztejn.ringtest.data.models
 
-import androidx.room.*
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.Index
+import androidx.room.PrimaryKey
 import java.io.Serializable
 
 @Entity(
@@ -18,13 +21,16 @@ data class Post(
     val title: String,
     val comments: Int,
     val createdUtc: Long,
-    val text: String?,
-    val url: String,
     val stickied: Boolean,
-    @Embedded(prefix = "image_") val image: Image?,
     val isRead: Boolean = false
 ) {
     var indexInResponse: Int = -1
 }
 
 data class Image(val url: String, val width: Int, val height: Int) : Serializable
+
+data class Detail(
+    val text: String? = null,
+    val url: String? = null,
+    val image: Image? = null
+)

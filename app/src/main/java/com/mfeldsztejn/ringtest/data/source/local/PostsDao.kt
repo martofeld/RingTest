@@ -25,5 +25,5 @@ interface PostsDao {
     suspend fun removePost(name: String)
 
     @Query("SELECT * FROM posts WHERE name = :name")
-    suspend fun postByName(name: String): Post
+    suspend fun postByName(name: String): Post?
 }

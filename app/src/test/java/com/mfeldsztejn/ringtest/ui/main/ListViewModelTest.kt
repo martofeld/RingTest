@@ -107,18 +107,18 @@ internal class ListViewModelTest {
     fun `markPostAsRead launches coroutine and delegates to repository`() = coTest {
         val viewModel = createViewModel()
 
-        viewModel.removePost(1)
+        viewModel.removePost("name")
 
-        coVerify { repository.removePost(1) }
+        coVerify { repository.removePost("name") }
     }
 
     @Test
     fun `removePost launches coroutine and delegates to repository`() = coTest {
         val viewModel = createViewModel()
 
-        viewModel.removePost(1)
+        viewModel.removePost("name")
 
-        coVerify { repository.removePost(1) }
+        coVerify { repository.removePost("name") }
     }
 
     @Nested

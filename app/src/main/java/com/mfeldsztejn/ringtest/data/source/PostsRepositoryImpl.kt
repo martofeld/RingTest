@@ -4,6 +4,9 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.liveData
 import com.mfeldsztejn.ringtest.data.PageKeyedRemoteMediator
+import com.mfeldsztejn.ringtest.data.models.Converter
+import com.mfeldsztejn.ringtest.data.models.Detail
+import com.mfeldsztejn.ringtest.data.models.PostDetailDTO
 import com.mfeldsztejn.ringtest.data.source.local.PostsLocalDataSource
 import com.mfeldsztejn.ringtest.data.source.remote.PostsRemoteDataSource
 
@@ -32,4 +35,8 @@ class PostsRepositoryImpl(
     ) {
         localDataSource.postsBySubreddit(subreddit)
     }.liveData
+
+    override suspend fun getPostDetails(subreddit: String, name: String): Detail {
+        return Converter.detailDtoToDetail(remoteDataSource.getPostDetails(subreddit, name))
+    }
 }

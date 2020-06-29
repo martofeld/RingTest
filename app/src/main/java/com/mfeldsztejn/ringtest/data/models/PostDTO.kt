@@ -13,10 +13,13 @@ data class PostDataDTO(
     @SerializedName("created_utc")
     val createdUtc: Long,
     val subreddit: String,
+    val stickied: Boolean
+)
+
+data class PostDetailDTO(
     @SerializedName("selftext_html")
     val text: String,
     val url: String,
-    val stickied: Boolean,
     val preview: PreviewDTO?
 )
 
@@ -26,13 +29,13 @@ data class ImagesDTO(val source: SourceDTO?)
 
 data class SourceDTO(val url: String, val width: Int, val height: Int)
 
-data class PostDTO(val kind: String, val data: PostDataDTO)
+data class PostDTO<T>(val kind: String, val data: T)
 
-data class PostsResponseDTO(val kind: String, val data: PostsDataDTO)
+data class PostsResponseDTO<T>(val kind: String, val data: PostsDataDTO<T>)
 
-data class PostsDataDTO(
+data class PostsDataDTO<T>(
     val modhash: String,
-    val children: List<PostDTO>,
+    val children: List<PostDTO<T>>,
     val after: String?,
     val before: String?,
     val count: Int?
